@@ -1,4 +1,4 @@
 (library
  (name player)
- (libraries ounit2 str)
+ (libraries str)
  (wrapped false))
