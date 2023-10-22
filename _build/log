@@ -4,7 +4,7 @@
 # Workspace root:
 # /Users/sashaboguraev/Desktop/Cornell/Fall2023/CS3110/CS-3110-Project
 # Auto-detected concurrency: 10
-$ /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /var/folders/kx/cjg9tbld1z95vqhh4kmccp200000gn/T/dune_f173b8_output
+$ /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /var/folders/kx/cjg9tbld1z95vqhh4kmccp200000gn/T/dune_601141_output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -121,18 +121,14 @@ $ /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /var/folders
 #      ; windows_unicode = false
 #      }
 #  }
-$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I test/.main.eobjs/byte -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml/unix -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ounit2 -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ounit2/advanced -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/seq -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/stdlib-shims -I src/.player.objs/byte -no-alias-deps -opaque -o test/.main.eobjs/byte/dune__exe__Main.cmi -c -intf test/main.mli)
-$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I test/.main.eobjs/byte -I test/.main.eobjs/native -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml/unix -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ounit2 -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ounit2/advanced -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/seq -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/stdlib-shims -I src/.player.objs/byte -I src/.player.objs/native -intf-suffix .ml -no-alias-deps -opaque -o test/.main.eobjs/native/dune__exe__Main.cmx -c -impl test/main.ml)
-> /var/folders/kx/cjg9tbld1z95vqhh4kmccp200000gn/T/build_82517a_dune/camlasm897979.s:31:15: error: unknown token in expression
->  orr x0, xzr, #1
->               ^
-> File "test/main.ml", line 1:
-> Error: Assembler error, input left in file /var/folders/kx/cjg9tbld1z95vqhh4kmccp200000gn/T/build_82517a_dune/camlasm897979.s
+$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamldep.opt -modules -intf src/player.mli) > _build/default/src/.Player.objs/player.intf.d
+$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamldep.opt -modules -impl src/board.ml) > _build/default/src/.Player.objs/board.impl.d
+> File "src/board.ml", line 23, characters 29-34:
+> 23 |   module Player_one = Player.empty
+>                                   ^^^^^
+> Error: Syntax error
 [2]
-$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I src/.player.objs/byte -I src/.player.objs/native -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml/unix -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ounit2 -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ounit2/advanced -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/seq -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/stdlib-shims -intf-suffix .ml -no-alias-deps -opaque -o src/.player.objs/native/player.cmx -c -impl src/player.ml)
-> /var/folders/kx/cjg9tbld1z95vqhh4kmccp200000gn/T/build_82517a_dune/camlasm7e9a0c.s:31:15: error: unknown token in expression
->  orr x0, xzr, #1
->               ^
-> File "src/player.ml", line 1:
-> Error: Assembler error, input left in file /var/folders/kx/cjg9tbld1z95vqhh4kmccp200000gn/T/build_82517a_dune/camlasm7e9a0c.s
-[2]
+$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamldep.opt -modules -impl src/player.ml) > _build/default/src/.Player.objs/player.impl.d
+$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I src/.Player.objs/byte -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml/unix -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ounit2 -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ounit2/advanced -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/seq -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/stdlib-shims -no-alias-deps -opaque -o src/.Player.objs/byte/player.cmi -c -intf src/player.mli)
+$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I src/.Player.objs/byte -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml/unix -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ounit2 -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ounit2/advanced -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/seq -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/stdlib-shims -intf-suffix .ml -no-alias-deps -opaque -o src/.Player.objs/byte/player.cmo -c -impl src/player.ml)
+$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I src/.Player.objs/byte -I src/.Player.objs/native -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml/unix -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ounit2 -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ounit2/advanced -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/seq -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/stdlib-shims -intf-suffix .ml -no-alias-deps -opaque -o src/.Player.objs/native/player.cmx -c -impl src/player.ml)
