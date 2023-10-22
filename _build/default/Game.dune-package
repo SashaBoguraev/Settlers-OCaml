@@ -4,6 +4,7 @@
 (files
  (lib
   (META
+   board.ml
    dune-package
    game.a
    game.cma
@@ -12,6 +13,9 @@
    game.cmx
    game.cmxa
    game.ml
+   game__Board.cmi
+   game__Board.cmt
+   game__Board.cmx
    game__Player.cmi
    game__Player.cmt
    game__Player.cmti
@@ -40,6 +44,10 @@
      (source (path Game) (impl (path game.ml-gen))))
     (name Game)
     (modules
+     (module
+      (obj_name game__Board)
+      (visibility public)
+      (source (path Board) (impl (path board.ml))))
      (module
       (obj_name game__Player)
       (visibility public)
