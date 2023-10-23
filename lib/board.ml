@@ -25,6 +25,9 @@ module type BoardType = sig
   val build_road : t -> int -> t option
   val build_settlement : t -> int -> t option
   val build_city : t -> int -> t option
+  val get_adj_lst : t -> node option list list
+  val get_node_lst : t -> node list
+  val get_edge_lst : t -> edge list
 end
 
 module SmallBoard : BoardType = struct
@@ -34,9 +37,9 @@ module SmallBoard : BoardType = struct
     edge_lst : edge list;
   }
 
-  let get_adj_lst board= board.adj_lst
-  let get_node_lst board= board.node_lst
-  let get_edge_lst board= board.edge_lst
+  let get_adj_lst board = board.adj_lst
+  let get_node_lst board = board.node_lst
+  let get_edge_lst board = board.edge_lst
 
   let node_one : node =
     {

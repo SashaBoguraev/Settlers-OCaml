@@ -20,8 +20,11 @@ module Test_Board = Game.Board
 let initial_board = Test_Board.SmallBoard.initial_board
 let board_with_road = Test_Board.SmallBoard.build_road initial_board 1
 
-let get_from_option (p : 'a option) : 'a =
+let get_player_from_option (p : 'a option) : 'a =
   match p with Some x -> x | None -> empty_player
+
+let get_board_from_option (p : 'a option) : 'a =
+  match p with Some x -> x | None -> initial_board
 
 let player_tests =
   [
@@ -40,13 +43,14 @@ let player_tests =
         (Player.Player.get_wood (Player.Player.add_wood empty_player)) );
     ( "build_road build a road and check that it exists" >:: fun _ ->
       assert_equal [ 0 ]
-        (Player.Player.get_road_locations (get_from_option player_with_road)) );
+        (Player.Player.get_road_locations
+           (get_player_from_option player_with_road)) );
     ( "build_road try to build a road and it doesn't work" >:: fun _ ->
       assert_equal None
         (match
            fst
              (Player.Player.build_road
-                (get_from_option player_with_two_roads)
+                (get_player_from_option player_with_two_roads)
                 1)
          with
         | Some x -> Some x
@@ -56,8 +60,12 @@ let player_tests =
 let board_tests =
   [
     ( "build_road build a road and confirm that it exists" >:: fun _ ->
-      assert_equal 3
-        (Player.Player.get_wood (Player.Player.add_wood empty_player)) );
+      assert_equal true
+        (List.nth
+           (Board.SmallBoard.get_edge_lst
+              (get_board_from_option board_with_road))
+           0)
+          .is_road );
   ]
 
 let suite = "test suite for A2" >::: List.flatten [ player_tests; board_tests ]
