@@ -9,40 +9,53 @@ type state = {player1: Game.Player.Player.t; player2: Game.Player.Player.t; boar
 (* read-eval-print loop for fourth piece placement
    if valid input: place piece, exit loop and print setup output 
    if invalid input: rerun loop*)
-let rec repl_3 (cur_state: state): unit = 
+let rec repl_3 (pl_one_first : int) (pl_two_first : int) (pl_two_second : int) (cur_state: state): unit = 
   print_endline "Player One Second Settlement > ";
   let input = int_of_string(read_line ()) in
-  if (input < 1) then repl_3  cur_state
-  else if (input > 24) then repl_3  cur_state
+  if (input < 1) then repl_3 pl_one_first pl_two_first pl_two_second cur_state
+  else if (input > 24) then repl_3 pl_one_first pl_two_first pl_two_second cur_state
   else match Game.Board.SmallBoard.build_settlement cur_state.board input, Game.Player.Player.build_settlment cur_state.player1 input with
-  | Some a, (Some b, _) -> print_endline "SHABOOYA"
-  | None, _ -> (print_endline "There is already a piece at this settlment location"; repl_3 cur_state)
+  | Some a, (Some b, _) -> print_endline "Board set up!"; 
+                           print_string "Player one has settlements at: ";
+                           print_string (string_of_int (input));
+                           print_string ", ";
+                           print_endline (string_of_int (pl_one_first));
+                           print_endline "Player one has the following in hand: 3 settlements; 15 roads; 3 cities; 0 resources";
+                           print_string "Player two has settlements at: ";
+                           print_string (string_of_int (pl_two_first));
+                           print_string ", ";
+                           print_endline (string_of_int (pl_two_second));
+                           print_endline "Player one has the following in hand: 3 settlements; 15 roads; 3 cities; 0 resources";
+
+
+                           
+  | None, _ -> (print_endline "There is already a piece at this settlment location"; repl_3 pl_one_first pl_two_first pl_two_second cur_state)
   | _ -> (print_string "UNEXPECTED BEHAVIOR TURN BACK NOW YOUR LIFE IS IN GREAT DANGER")
 
 (* read-eval-print loop for third piece placement
    if valid input: place piece, exit loop by calling repl_3 
    if invalid input: rerun loop*)
-let rec repl_2 (cur_state: state) : unit = 
+let rec repl_2 (pl_one_first : int) (pl_two_first : int) (cur_state: state) : unit = 
   print_endline "Player Two Second Settlement > ";
   let input = int_of_string(read_line ()) in
-  if (input < 1) then repl_2  cur_state
-  else if (input > 24) then repl_2  cur_state
+  if (input < 1) then repl_2 pl_one_first pl_two_first cur_state
+  else if (input > 24) then repl_2 pl_one_first pl_two_first cur_state
   else match Game.Board.SmallBoard.build_settlement cur_state.board input, Game.Player.Player.build_settlment cur_state.player2 input with
-  | Some a, (Some b, _) -> repl_3 {cur_state with player2 = b; board = a}
-  | None, _ -> (print_endline "There is already a piece at this settlment location"; repl_2 cur_state)
+  | Some a, (Some b, _) -> repl_3 pl_one_first pl_two_first input {cur_state with player2 = b; board = a}
+  | None, _ -> (print_endline "There is already a piece at this settlment location"; repl_2 pl_one_first pl_two_first cur_state)
   | _ -> (print_string "UNEXPECTED BEHAVIOR TURN BACK NOW YOUR LIFE IS IN GREAT DANGER")
 
 (* read-eval-print loop for second piece placement
    if valid input: place piece, exit loop by calling repl_2 
    if invalid input: rerun loop*)
-let rec repl_1 (cur_state: state): unit =
+let rec repl_1 (pl_one_first : int) (cur_state: state): unit =
   print_endline "Player Two First Settlement > ";
   let input = int_of_string(read_line ()) in
-  if (input < 1) then repl_1  cur_state
-  else if (input > 24) then repl_1  cur_state
+  if (input < 1) then repl_1 pl_one_first cur_state
+  else if (input > 24) then repl_1 pl_one_first cur_state
   else match Game.Board.SmallBoard.build_settlement cur_state.board input, Game.Player.Player.build_settlment cur_state.player2 input with
-  | Some a, (Some b, _) -> repl_2 {cur_state with player2 = b; board = a}
-  | None, _ -> (print_endline "There is already a piece at this settlment location"; repl_1 cur_state)
+  | Some a, (Some b, _) -> repl_2 pl_one_first input {cur_state with player2 = b; board = a}
+  | None, _ -> (print_endline "There is already a piece at this settlment location"; repl_1 pl_one_first cur_state)
   | _ -> (print_string "UNEXPECTED BEHAVIOR TURN BACK NOW YOUR LIFE IS IN GREAT DANGER") 
 
 let () =
@@ -70,9 +83,7 @@ let () =
   print_endline "Player 1 please enter the number of the node for your first settlement: ";
   let position = int_of_string (read_line ()) in 
   match Game.Board.SmallBoard.build_settlement initial_board position, Game.Player.Player.build_settlment player_one position with
-  | Some a, (None, _) -> print_string "LEO FUCKED UP"
-  | None, (Some a, _) -> print_string "SASHA FUCKED UP"
-  | Some a, (Some b, _) -> repl_1({player1 = b; player2 = player_two; board = a})
+  | Some a, (Some b, _) -> repl_1 position ({player1 = b; player2 = player_two; board = a})
   | _ -> print_endline "SOMETHING VERY WRONG; ABORT; RETRY; DESTROY"
   ;
 
