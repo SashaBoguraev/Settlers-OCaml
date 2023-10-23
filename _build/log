@@ -1,10 +1,9 @@
 # dune exec bin/main.exe
 # OCAMLPARAM: unset
 # Shared cache: disabled
-# Workspace root:
-# /Users/sashaboguraev/Desktop/Cornell/Fall2023/CS3110/CS-3110-Project
-# Auto-detected concurrency: 10
-$ /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /var/folders/kx/cjg9tbld1z95vqhh4kmccp200000gn/T/dune_245388_output
+# Workspace root: /Users/leodavies/Documents/3110/CS-3110-Project
+# Auto-detected concurrency: 8
+$ /Users/leodavies/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /var/folders/nj/hg3ynmbj0qx5gxhr357s35_h0000gn/T/dune_ff0144_output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -13,48 +12,47 @@ $ /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /var/folders
 #  ; for_host = None
 #  ; fdo_target_exe = None
 #  ; build_dir = In_build_dir "default"
-#  ; ocaml_bin = External "/Users/sashaboguraev/.opam/cs3110-2023fa/bin"
-#  ; ocaml = Ok External "/Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocaml"
-#  ; ocamlc =
-#      External "/Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt"
+#  ; ocaml_bin = External "/Users/leodavies/.opam/cs3110-2023fa/bin"
+#  ; ocaml = Ok External "/Users/leodavies/.opam/cs3110-2023fa/bin/ocaml"
+#  ; ocamlc = External "/Users/leodavies/.opam/cs3110-2023fa/bin/ocamlc.opt"
 #  ; ocamlopt =
-#      Ok External "/Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlopt.opt"
+#      Ok External "/Users/leodavies/.opam/cs3110-2023fa/bin/ocamlopt.opt"
 #  ; ocamldep =
-#      Ok External "/Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamldep.opt"
+#      Ok External "/Users/leodavies/.opam/cs3110-2023fa/bin/ocamldep.opt"
 #  ; ocamlmklib =
-#      Ok
-#        External "/Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlmklib.opt"
+#      Ok External "/Users/leodavies/.opam/cs3110-2023fa/bin/ocamlmklib.opt"
 #  ; env =
 #      map
 #        { "DUNE_OCAML_HARDCODED" :
-#            "/Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml:/Users/sashaboguraev/.opam/cs3110-2023fa/lib"
+#            "/Users/leodavies/.opam/cs3110-2023fa/lib/ocaml:/Users/leodavies/.opam/cs3110-2023fa/lib"
 #        ; "DUNE_OCAML_STDLIB" :
-#            "/Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml"
+#            "/Users/leodavies/.opam/cs3110-2023fa/lib/ocaml"
 #        ; "DUNE_SOURCEROOT" :
-#            "/Users/sashaboguraev/Desktop/Cornell/Fall2023/CS3110/CS-3110-Project"
+#            "/Users/leodavies/Documents/3110/CS-3110-Project"
 #        ; "INSIDE_DUNE" :
-#            "/Users/sashaboguraev/Desktop/Cornell/Fall2023/CS3110/CS-3110-Project/_build/default"
+#            "/Users/leodavies/Documents/3110/CS-3110-Project/_build/default"
+#        ; "MANPATH" :
+#            "/Users/leodavies/Documents/3110/CS-3110-Project/_build/install/default/man"
 #        ; "OCAMLFIND_IGNORE_DUPS_IN" :
-#            "/Users/sashaboguraev/Desktop/Cornell/Fall2023/CS3110/CS-3110-Project/_build/install/default/lib"
+#            "/Users/leodavies/Documents/3110/CS-3110-Project/_build/install/default/lib"
 #        ; "OCAMLPATH" :
-#            "/Users/sashaboguraev/Desktop/Cornell/Fall2023/CS3110/CS-3110-Project/_build/install/default/lib"
+#            "/Users/leodavies/Documents/3110/CS-3110-Project/_build/install/default/lib"
 #        ; "OCAMLTOP_INCLUDE_PATH" :
-#            "/Users/sashaboguraev/Desktop/Cornell/Fall2023/CS3110/CS-3110-Project/_build/install/default/lib/toplevel"
+#            "/Users/leodavies/Documents/3110/CS-3110-Project/_build/install/default/lib/toplevel"
 #        ; "OCAML_COLOR" : "always"
 #        ; "OPAMCOLOR" : "always"
 #        }
 #  ; findlib_paths =
-#      [ External "/Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml"
-#      ; External "/Users/sashaboguraev/.opam/cs3110-2023fa/lib"
+#      [ External "/Users/leodavies/.opam/cs3110-2023fa/lib/ocaml"
+#      ; External "/Users/leodavies/.opam/cs3110-2023fa/lib"
 #      ]
 #  ; natdynlink_supported = true
 #  ; supports_shared_libraries = true
 #  ; ocaml_config =
 #      { version = "5.0.0"
 #      ; standard_library_default =
-#          "/Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml"
-#      ; standard_library =
-#          "/Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml"
+#          "/Users/leodavies/.opam/cs3110-2023fa/lib/ocaml"
+#      ; standard_library = "/Users/leodavies/.opam/cs3110-2023fa/lib/ocaml"
 #      ; standard_runtime = "the_standard_runtime_variable_was_deleted"
 #      ; ccomp_type = "cc"
 #      ; c_compiler = "cc"
@@ -84,7 +82,7 @@ $ /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /var/folders
 #      ; native_c_libraries = [ "-lm"; "-lpthread" ]
 #      ; native_pack_linker = [ "ld"; "-r"; "-o" ]
 #      ; cc_profile = []
-#      ; architecture = "arm64"
+#      ; architecture = "amd64"
 #      ; model = "default"
 #      ; int_size = 63
 #      ; word_size = 64
@@ -100,8 +98,8 @@ $ /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /var/folders
 #      ; os_type = "Unix"
 #      ; default_executable_name = "a.out"
 #      ; systhread_supported = true
-#      ; host = "aarch64-apple-darwin21.4.0"
-#      ; target = "aarch64-apple-darwin21.4.0"
+#      ; host = "x86_64-apple-darwin21.6.0"
+#      ; target = "x86_64-apple-darwin21.6.0"
 #      ; profiling = false
 #      ; flambda = false
 #      ; spacetime = false
@@ -121,5 +119,5 @@ $ /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /var/folders
 #      ; windows_unicode = false
 #      }
 #  }
-$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I bin/.main.eobjs/byte -I bin/.main.eobjs/native -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml/str -I lib/.game.objs/byte -I lib/.game.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.main.eobjs/native/dune__exe__Main.cmx -c -impl bin/main.ml)
-$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -o bin/main.exe /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml/str/str.cmxa lib/game.cmxa bin/.main.eobjs/native/dune__exe__Main.cmx)
+$ (cd _build/default && /Users/leodavies/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I bin/.main.eobjs/byte -I bin/.main.eobjs/native -I /Users/leodavies/.opam/cs3110-2023fa/lib/ocaml/str -I lib/.game.objs/byte -I lib/.game.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.main.eobjs/native/dune__exe__Main.cmx -c -impl bin/main.ml)
+$ (cd _build/default && /Users/leodavies/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -o bin/main.exe /Users/leodavies/.opam/cs3110-2023fa/lib/ocaml/str/str.cmxa lib/game.cmxa bin/.main.eobjs/native/dune__exe__Main.cmx)
