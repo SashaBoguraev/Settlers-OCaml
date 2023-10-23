@@ -40,11 +40,14 @@ module Player = struct
 
   (** Getters*)
   let get_clay player = player.clay_count
-
   let get_wood player = player.wood_count
   let get_wheat player = player.wheat_count
   let get_sheep player = player.sheep_count
   let get_ore player = player.ore_count
+  let get_settlement_count player = player.settlement_count
+  let get_road_count player = player.road_count
+  let get_city_count player = player.city_count
+  let get_dev_card_count player = player.
 
   let empty =
     {
