@@ -515,8 +515,7 @@ module SmallBoard : BoardType = struct
     if
       (List.nth board.node_lst (city_loc - 1)).is_settlement
       && not (List.nth board.node_lst (city_loc - 1)).is_city
-    then None
-    else
+    then
       let new_nodes =
         List.mapi
           (fun i el ->
@@ -531,4 +530,5 @@ module SmallBoard : BoardType = struct
           node_lst = new_nodes;
           edge_lst = edges;
         }
+    else None
 end
