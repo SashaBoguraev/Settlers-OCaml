@@ -4,7 +4,7 @@
 # Workspace root:
 # /Users/sashaboguraev/Desktop/Cornell/Fall2023/CS3110/CS-3110-Project
 # Auto-detected concurrency: 10
-$ /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /var/folders/kx/cjg9tbld1z95vqhh4kmccp200000gn/T/dune_601141_output
+$ /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /var/folders/kx/cjg9tbld1z95vqhh4kmccp200000gn/T/dune_7ee317_output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -121,14 +121,5 @@ $ /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /var/folders
 #      ; windows_unicode = false
 #      }
 #  }
-$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamldep.opt -modules -intf src/player.mli) > _build/default/src/.Player.objs/player.intf.d
-$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamldep.opt -modules -impl src/board.ml) > _build/default/src/.Player.objs/board.impl.d
-> File "src/board.ml", line 23, characters 29-34:
-> 23 |   module Player_one = Player.empty
->                                   ^^^^^
-> Error: Syntax error
-[2]
-$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamldep.opt -modules -impl src/player.ml) > _build/default/src/.Player.objs/player.impl.d
-$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I src/.Player.objs/byte -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml/unix -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ounit2 -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ounit2/advanced -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/seq -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/stdlib-shims -no-alias-deps -opaque -o src/.Player.objs/byte/player.cmi -c -intf src/player.mli)
-$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I src/.Player.objs/byte -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml/unix -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ounit2 -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ounit2/advanced -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/seq -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/stdlib-shims -intf-suffix .ml -no-alias-deps -opaque -o src/.Player.objs/byte/player.cmo -c -impl src/player.ml)
-$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I src/.Player.objs/byte -I src/.Player.objs/native -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml/unix -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ounit2 -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ounit2/advanced -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/seq -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/stdlib-shims -intf-suffix .ml -no-alias-deps -opaque -o src/.Player.objs/native/player.cmx -c -impl src/player.ml)
+$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I test/.main.eobjs/byte -I test/.main.eobjs/native -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml/unix -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ounit2 -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ounit2/advanced -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/seq -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/stdlib-shims -I lib/.Player.objs/byte -I lib/.Player.objs/native -intf-suffix .ml -no-alias-deps -opaque -o test/.main.eobjs/native/dune__exe__Main.cmx -c -impl test/main.ml)
+$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -o test/main.exe /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml/unix/unix.cmxa /Users/sashaboguraev/.opam/cs3110-2023fa/lib/stdlib-shims/stdlib_shims.cmxa /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ounit2/advanced/oUnitAdvanced.cmxa /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ounit2/oUnit.cmxa lib/Player.cmxa test/.main.eobjs/native/dune__exe__Main.cmx)

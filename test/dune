@@ -1,4 +1,4 @@
 (executable
  (name main)
  (modules main)
- (libraries player ounit2))
+ (libraries Player ounit2))
