@@ -1,4 +1,10 @@
 (library
+<<<<<<< HEAD
+ (name Player)
+ (libraries ounit2)
+ (wrapped false))
+=======
  (name game)
  (public_name Game)
  (libraries str))
+>>>>>>> main
