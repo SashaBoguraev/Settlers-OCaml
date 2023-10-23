@@ -1,4 +1,0 @@
-(library
- (name player)
- (libraries ounit2)
- (wrapped false))
