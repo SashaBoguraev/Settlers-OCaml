@@ -1,9 +1,9 @@
-# dune build
+# dune exec test/main.exe
 # OCAMLPARAM: unset
 # Shared cache: disabled
 # Workspace root: /home/maxwhitton/3110/CS-3110-Project
 # Auto-detected concurrency: 8
-$ /home/maxwhitton/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /tmp/dune_2d3344_output
+$ /home/maxwhitton/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /tmp/dune_d0e6fc_output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -118,11 +118,3 @@ $ /home/maxwhitton/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /tmp/dune_2d3344
 #      ; windows_unicode = false
 #      }
 #  }
-$ (cd _build/default && /home/maxwhitton/.opam/cs3110-2023fa/bin/ocamldep.opt -modules -impl lib/board.ml) > _build/default/lib/.game.objs/game__Board.impl.d
-$ (cd _build/default && /home/maxwhitton/.opam/cs3110-2023fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I lib/.game.objs/byte -I /home/maxwhitton/.opam/cs3110-2023fa/lib/ocaml/str -no-alias-deps -opaque -open Game -o lib/.game.objs/byte/game__Board.cmo -c -impl lib/board.ml)
-$ (cd _build/default && /home/maxwhitton/.opam/cs3110-2023fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -a -o lib/game.cma lib/.game.objs/byte/game.cmo lib/.game.objs/byte/game__Player.cmo lib/.game.objs/byte/game__Board.cmo)
-$ (cd _build/default && /home/maxwhitton/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I lib/.game.objs/byte -I lib/.game.objs/native -I /home/maxwhitton/.opam/cs3110-2023fa/lib/ocaml/str -intf-suffix .ml -no-alias-deps -opaque -open Game -o lib/.game.objs/native/game__Board.cmx -c -impl lib/board.ml)
-$ (cd _build/default && /home/maxwhitton/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -a -o lib/game.cmxa lib/.game.objs/native/game.cmx lib/.game.objs/native/game__Player.cmx lib/.game.objs/native/game__Board.cmx)
-$ (cd _build/default && /home/maxwhitton/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -shared -linkall -I lib -o lib/game.cmxs lib/game.cmxa)
-$ (cd _build/default && /home/maxwhitton/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -o bin/main.exe /home/maxwhitton/.opam/cs3110-2023fa/lib/ocaml/str/str.cmxa lib/game.cmxa bin/.main.eobjs/native/dune__exe__Main.cmx)
-$ (cd _build/default && /home/maxwhitton/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -o test/main.exe /home/maxwhitton/.opam/cs3110-2023fa/lib/ocaml/unix/unix.cmxa /home/maxwhitton/.opam/cs3110-2023fa/lib/stdlib-shims/stdlib_shims.cmxa /home/maxwhitton/.opam/cs3110-2023fa/lib/ounit2/advanced/oUnitAdvanced.cmxa /home/maxwhitton/.opam/cs3110-2023fa/lib/ounit2/oUnit.cmxa /home/maxwhitton/.opam/cs3110-2023fa/lib/ocaml/str/str.cmxa lib/game.cmxa test/.main.eobjs/native/dune__exe__Main.cmx)

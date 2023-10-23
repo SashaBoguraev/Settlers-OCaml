@@ -20,6 +20,9 @@ module Test_Board = Game.Board
 let initial_board = Test_Board.SmallBoard.initial_board
 let board_with_road = Test_Board.SmallBoard.build_road initial_board 1
 
+let board_with_settlement =
+  Test_Board.SmallBoard.build_settlement initial_board 6
+
 let get_player_from_option (p : 'a option) : 'a =
   match p with Some x -> x | None -> empty_player
 
@@ -66,6 +69,18 @@ let board_tests =
               (get_board_from_option board_with_road))
            0)
           .is_road );
+    ( "build_city that isn't legal" >:: fun _ ->
+      assert_equal None (Board.SmallBoard.build_city initial_board 1) );
+    ( "build_city that is legal" >:: fun _ ->
+      assert_equal true
+        (List.nth
+           (Board.SmallBoard.get_node_lst
+              (get_board_from_option
+                 (Board.SmallBoard.build_city
+                    (get_board_from_option board_with_settlement)
+                    6)))
+           5)
+          .is_city );
   ]
 
 let suite = "test suite for A2" >::: List.flatten [ player_tests; board_tests ]
