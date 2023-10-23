@@ -1,16 +1,8 @@
-<<<<<<< HEAD
-module type PlayerType = sig
-  type t
-
-  type resource
-
-=======
 type resource = Clay | Wood | Sheep | Ore | Wheat
 
 module type PlayerType = sig
   type t
 
->>>>>>> main
   val empty : t
 
   val add_resource : resource -> t -> t
@@ -22,10 +14,7 @@ module type PlayerType = sig
   val build_city : t -> t
 
   (* val add_dev_card : t -> t
-<<<<<<< HEAD
-=======
 
->>>>>>> main
   val play_dev_card : t -> t *)
 
 end
@@ -35,11 +24,6 @@ module Player : PlayerType = struct
             settlement_count : int; road_count : int; city_count : int; dev_card_count : int; 
             army_count : int; long_road_count : int; victory_points : int}
 
-<<<<<<< HEAD
-  type resource = Clay | Wood | Sheep | Ore | Wheat
-
-=======
->>>>>>> main
   let empty = {clay_count = 0; wood_count = 0; sheep_count = 0; ore_count = 0; wheat_count = 0;
                settlement_count = 5; road_count = 15; city_count = 3; dev_card_count = 0;
                army_count = 0; long_road_count = 0; victory_points = 0;}
