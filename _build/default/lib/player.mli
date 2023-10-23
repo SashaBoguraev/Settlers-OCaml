@@ -22,3 +22,7 @@ module type PlayerType = sig
 module Player : PlayerType
 
 
+<<<<<<< HEAD
+module Player : PlayerType
+=======
+>>>>>>> main
