@@ -25,7 +25,7 @@ module Player = struct
             army_count : int; long_road_count : int; victory_points : int; 
             settlement_locations : int list; road_locations : int list; city_locations : int list}
 
-  let empty = {clay_count = 0; wood_count = 0; sheep_count = 0; ore_count = 0; wheat_count = 0;
+  let empty = {clay_count = 2; wood_count = 2; sheep_count = 2; ore_count = 0; wheat_count = 2;
                settlement_count = 5; road_count = 15; city_count = 3; dev_card_count = 0;
                army_count = 0; long_road_count = 0; victory_points = 0;
                settlement_locations = []; road_locations = []; city_locations = []}
@@ -48,9 +48,6 @@ module Player = struct
                             else if player.road_count == 0 then (None, 1)
                             else (None, 2)
 
-<<<<<<< HEAD
-  let build_city player = {player with ore_count = player.ore_count - 3; wheat_count = player.wheat_count - 2; city_count = player.city_count - 1}
-=======
   (** Builds a settlment on the map at edge road_loc, returns a tuple of the updated player and an integer 0. 
       If the move is illegal, it will return a tuple of 'None' and a number representing the reason for 
       the error. The key is as follows:
@@ -70,7 +67,6 @@ module Player = struct
                               then (Some {player with ore_count = player.ore_count - 3; wheat_count = player.wheat_count - 2; city_count = player.city_count - 1; city_locations = (loc - 1) :: player.city_locations}, 0)
                               else if player.city_count == 0 then (None, 1)
                               else (None, 2)
->>>>>>> main
 end
 
 

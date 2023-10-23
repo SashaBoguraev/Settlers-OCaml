@@ -1,16 +1,10 @@
 # dune exec bin/main.exe
 # OCAMLPARAM: unset
 # Shared cache: disabled
-<<<<<<< HEAD
 # Workspace root:
 # /Users/sashaboguraev/Desktop/Cornell/Fall2023/CS3110/CS-3110-Project
 # Auto-detected concurrency: 10
-$ /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /var/folders/kx/cjg9tbld1z95vqhh4kmccp200000gn/T/dune_19a471_output
-=======
-# Workspace root: /Users/leodavies/Documents/3110/CS-3110-Project
-# Auto-detected concurrency: 8
-$ /Users/leodavies/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /var/folders/nj/hg3ynmbj0qx5gxhr357s35_h0000gn/T/dune_493b5a_output
->>>>>>> main
+$ /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /var/folders/kx/cjg9tbld1z95vqhh4kmccp200000gn/T/dune_245388_output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -127,22 +121,5 @@ $ /Users/leodavies/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /var/folders/nj/
 #      ; windows_unicode = false
 #      }
 #  }
-<<<<<<< HEAD
-$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -49 -nopervasives -nostdlib -g -bin-annot -I lib/.game.objs/byte -no-alias-deps -opaque -o lib/.game.objs/byte/game.cmo -c -impl lib/game.ml-gen)
-$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamldep.opt -modules -intf lib/player.mli) > _build/default/lib/.game.objs/game__Player.intf.d
-$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamldep.opt -modules -impl lib/player.ml) > _build/default/lib/.game.objs/game__Player.impl.d
-$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamldep.opt -modules -impl lib/board.ml) > _build/default/lib/.game.objs/game__Board.impl.d
-$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I lib/.game.objs/byte -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml/str -no-alias-deps -opaque -open Game -o lib/.game.objs/byte/game__Player.cmi -c -intf lib/player.mli)
-$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I lib/.game.objs/byte -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml/str -intf-suffix .ml -no-alias-deps -opaque -open Game -o lib/.game.objs/byte/game__Player.cmo -c -impl lib/player.ml)
-$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I lib/.game.objs/byte -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml/str -no-alias-deps -opaque -open Game -o lib/.game.objs/byte/game__Board.cmo -c -impl lib/board.ml)
-$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -bin-annot -I bin/.main.eobjs/byte -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml/str -I lib/.game.objs/byte -no-alias-deps -opaque -o bin/.main.eobjs/byte/dune__exe__Main.cmi -c -intf bin/main.mli)
-$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -a -o lib/game.cma lib/.game.objs/byte/game.cmo lib/.game.objs/byte/game__Player.cmo lib/.game.objs/byte/game__Board.cmo)
-$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlopt.opt -w @1..3@5..28@30..39@43@46..47@49..57@61..62@67@69-40 -strict-sequence -strict-formats -short-paths -keep-locs -w -49 -nopervasives -nostdlib -g -I lib/.game.objs/byte -I lib/.game.objs/native -intf-suffix .ml-gen -no-alias-deps -opaque -o lib/.game.objs/native/game.cmx -c -impl lib/game.ml-gen)
 $ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I bin/.main.eobjs/byte -I bin/.main.eobjs/native -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml/str -I lib/.game.objs/byte -I lib/.game.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.main.eobjs/native/dune__exe__Main.cmx -c -impl bin/main.ml)
-$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I lib/.game.objs/byte -I lib/.game.objs/native -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml/str -intf-suffix .ml -no-alias-deps -opaque -open Game -o lib/.game.objs/native/game__Player.cmx -c -impl lib/player.ml)
-$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I lib/.game.objs/byte -I lib/.game.objs/native -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml/str -intf-suffix .ml -no-alias-deps -opaque -open Game -o lib/.game.objs/native/game__Board.cmx -c -impl lib/board.ml)
-$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -a -o lib/game.cmxa lib/.game.objs/native/game.cmx lib/.game.objs/native/game__Player.cmx lib/.game.objs/native/game__Board.cmx)
-$ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -shared -linkall -I lib -o lib/game.cmxs lib/game.cmxa)
 $ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -o bin/main.exe /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml/str/str.cmxa lib/game.cmxa bin/.main.eobjs/native/dune__exe__Main.cmx)
-=======
->>>>>>> main

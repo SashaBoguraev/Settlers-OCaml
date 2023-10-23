@@ -22,7 +22,7 @@ module type BoardType = sig
 end
 
 module SmallBoard: BoardType = struct
-  type t = node option list list * edge list
+  type t = {adj_lst: node option list list; node_lst: node list; edge_lst: edge list}
   
   let node_one: node = {border_one_resource = None; border_one_number = None;
                         border_two_resource = None; border_two_number = None;
@@ -230,28 +230,28 @@ module SmallBoard: BoardType = struct
     {node1 = node_twentytwo; node2 = node_twentyfour; is_road = false};
   ]
 
-  let initial_board = (build_vertices nodes, edges)
+  let initial_board = {adj_lst = build_vertices nodes; node_lst= nodes; edge_lst = edges}
 
 
   (** Builds a road on the map at edge road_loc, returns the updated board. 
       If the move is illegal, it will return None (a move is illegal if there is already a piece at the desired location) *)
   let build_road (board: t) (road_loc: int): t option = 
-    if not (List.nth edges (road_loc-1)).is_road then None
-    else let new_edges = List.mapi (fun i el -> if i = (road_loc-1) then {el with is_road=true} else el) edges
-  in Some (build_vertices nodes, new_edges)
+    if (List.nth board.edge_lst (road_loc-1)).is_road then None
+    else let new_edges = List.mapi (fun i el -> if i = (road_loc-1) then {el with is_road=true} else el) board.edge_lst
+  in Some {adj_lst = build_vertices nodes; node_lst= nodes; edge_lst = new_edges}
 
   (** Builds a settlement on the map at vertex settlement_loc, returns the updated board. 
     If the move is illegal, it will return None (a move is illegal if there is already a piece at the desired location) *)
   let build_settlement (board: t) (settlement_loc: int): t option = 
-    if not ((List.nth nodes (settlement_loc-1)).is_settlement || (List.nth nodes (settlement_loc-1)).is_city) then None
-    else let new_nodes = List.mapi (fun i el -> if i = (settlement_loc-1) then {el with is_settlement=true} else el) nodes
-  in Some (build_vertices new_nodes, edges)
+    if ((List.nth board.node_lst (settlement_loc-1)).is_settlement || (List.nth board.node_lst (settlement_loc-1)).is_city) then None
+    else let new_nodes = List.mapi (fun i el -> if i = (settlement_loc-1) then {el with is_settlement=true} else el) board.node_lst
+  in Some {adj_lst = build_vertices new_nodes; node_lst= new_nodes; edge_lst = edges}
 
   (** Builds a city on the map at vertex city_loc, returns the updated board. 
   If the move is illegal, it will return None (a move is illegal if there is already a piece at the desired location) *)
   let build_city (board: t) (city_loc: int): t option = 
-    if (List.nth nodes (city_loc-1)).is_settlement && not (List.nth nodes (city_loc-1)).is_city then None
-    else let new_nodes = List.mapi (fun i el -> if i = (city_loc-1) then {el with is_city=true; is_settlement = false} else el) nodes
-  in Some (build_vertices new_nodes, edges)
+    if (List.nth board.node_lst (city_loc-1)).is_settlement && not (List.nth board.node_lst (city_loc-1)).is_city then None
+    else let new_nodes = List.mapi (fun i el -> if i = (city_loc-1) then {el with is_city=true; is_settlement = false} else el) board.node_lst
+  in Some {adj_lst = build_vertices new_nodes; node_lst= new_nodes; edge_lst = edges}
 
 end
