@@ -6,7 +6,7 @@ Welcome to our MS2 prototype for Settler's of Catan! In this version of our proj
 
 ## Installation
 
-To install this project please run `git pull git@github.coecis.cornell.edu:asb323/CS-3110-Project.git`. Move into the project directory, and run `dune build`. At this point our project should be setup and ready to run.
+To install this project please run `git clone git@github.coecis.cornell.edu:asb323/CS-3110-Project.git`. Move into the project directory, and run `dune build`. At this point our project should be setup and ready to run.
 
 ## Running
 
