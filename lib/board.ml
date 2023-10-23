@@ -34,6 +34,10 @@ module SmallBoard : BoardType = struct
     edge_lst : edge list;
   }
 
+  let get_adj_lst board= board.adj_lst
+  let get_node_lst board= board.node_lst
+  let get_edge_lst board= board.edge_lst
+
   let node_one : node =
     {
       border_one_resource = None;
