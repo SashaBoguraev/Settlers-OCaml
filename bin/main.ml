@@ -21,7 +21,7 @@ let () =
   print_endline "     /     \\ /     \\ /     \\";
   print_endline "    | Clay  | Desert|  Wood |";
   print_endline "    |   3   |       |   2   |";
-  print_endline "    |   3   |       |   2   |";
+  print_endline "    |       |       |       |";
   print_endline "     \\     / \\     / \\     /";
   print_endline "      \\   /   \\   /   \\   /";
   print_endline "       \\ /     \\ /     \\ /";
@@ -30,8 +30,13 @@ let () =
   print_endline "         \\     / \\     / ";
   print_endline "          \\   /   \\   / ";
   print_endline "           \\ /     \\ / \n";
+  print_endline "Possible locations are labeled 1-24 starting top left and increase right then down\n";
+  print_string "Player 1 please enter the number of the node for your first settlement: ";
+  let position = int_of_string (read_line ()) in 
+  if position < 1 || position > 24 then print_endline "Invalid Position!" else print_endline "Successfully placed!";
 
-  
+
+
 
 
 
