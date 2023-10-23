@@ -1,14 +1,7 @@
-<<<<<<< HEAD
-module type PlayerType = sig
-    type t
-
-    type resource
-=======
 type resource
 
 module type PlayerType = sig
     type t
->>>>>>> main
   
     val empty : t
   

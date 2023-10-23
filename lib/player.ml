@@ -19,7 +19,7 @@ module type PlayerType = sig
 
 end
 
-module Player : PlayerType = struct
+module Player = struct
   type t = {clay_count : int; wood_count : int; sheep_count : int; ore_count : int; wheat_count : int; 
             settlement_count : int; road_count : int; city_count : int; dev_card_count : int; 
             army_count : int; long_road_count : int; victory_points : int}
@@ -38,7 +38,6 @@ module Player : PlayerType = struct
   let build_road player = {player with clay_count = player.clay_count - 1; wood_count = player.wood_count - 1; road_count = player.road_count - 1}
 
   let build_settlment player = {player with clay_count = player.clay_count - 1; wood_count = player.wood_count - 1; sheep_count = player.sheep_count - 1; wheat_count = player.wheat_count - 1; settlement_count = player.settlement_count - 1}
-
 
   let build_city player = {player with ore_count = player.ore_count - 3; wheat_count = player.wheat_count - 2; city_count = player.city_count - 1}
 end
