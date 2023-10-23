@@ -1,4 +1,8 @@
 (executable
  (name main)
  (modules main)
+<<<<<<< HEAD
  (libraries Player ounit2))
+=======
+ (libraries ounit2))
+>>>>>>> main
