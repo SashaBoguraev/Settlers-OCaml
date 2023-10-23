@@ -7,16 +7,22 @@ module type PlayerType = sig
   
     val add_resource : resource -> t -> t
   
-    val build_road : t -> t
+    val build_road : t -> int -> t option * int
   
-    val build_settlment : t -> t
+    val build_settlment : t -> int -> t option * int
   
-    val build_city : t -> t
+    val build_city : t -> int -> t option * int
   
     (* val add_dev_card : t -> t
   
     val play_dev_card : t -> t *)
   
-end
+  end
 
 module Player : PlayerType
+
+
+<<<<<<< HEAD
+module Player : PlayerType
+=======
+>>>>>>> main
