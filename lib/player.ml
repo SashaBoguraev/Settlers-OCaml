@@ -1,10 +1,7 @@
-type resource = Clay | Wood | Sheep | Ore | Wheat
-
 module type PlayerType = sig
   type t
 
   val empty : t
-  val add_resource : resource -> t -> t
   val build_road : t -> int -> t option * int
   val build_settlment : t -> int -> t option * int
   val build_city : t -> int -> t option * int
@@ -13,6 +10,21 @@ module type PlayerType = sig
   val get_wheat : t -> int
   val get_sheep : t -> int
   val get_ore : t -> int
+  val get_settlement_count : t -> int
+  val get_road_count : t -> int
+  val get_city_count : t -> int
+  val get_dev_card_count : t -> int
+  val get_army_count : t -> int
+  val get_long_road : t -> int
+  val get_victory_points : t -> int
+  val get_settlement_locations : t -> int list
+  val get_road_locations : t -> int list
+  val get_city_locations : t -> int list
+  val add_ore : t -> t
+  val add_wood : t -> t
+  val add_clay : t -> t
+  val add_sheep : t -> t
+  val add_wheat : t -> t
 
   (* val add_dev_card : t -> t
 
@@ -40,6 +52,7 @@ module Player = struct
 
   (** Getters*)
   let get_clay player = player.clay_count
+
   let get_wood player = player.wood_count
   let get_wheat player = player.wheat_count
   let get_sheep player = player.sheep_count
@@ -47,7 +60,13 @@ module Player = struct
   let get_settlement_count player = player.settlement_count
   let get_road_count player = player.road_count
   let get_city_count player = player.city_count
-  let get_dev_card_count player = player.
+  let get_dev_card_count player = player.dev_card_count
+  let get_army_count player = player.army_count
+  let get_long_road player = player.long_road_count
+  let get_victory_points player = player.victory_points
+  let get_settlement_locations player = player.settlement_locations
+  let get_road_locations player = player.road_locations
+  let get_city_locations player = player.city_locations
 
   let empty =
     {
@@ -68,23 +87,25 @@ module Player = struct
       city_locations = [];
     }
 
-  let add_resource card player =
-    match card with
-    | Clay ->
-        let count = player.clay_count + 1 in
-        { player with clay_count = count }
-    | Wood ->
-        let count = player.wood_count + 1 in
-        { player with wood_count = count }
-    | Sheep ->
-        let count = player.sheep_count + 1 in
-        { player with sheep_count = count }
-    | Ore ->
-        let count = player.ore_count + 1 in
-        { player with ore_count = count }
-    | Wheat ->
-        let count = player.wheat_count + 1 in
-        { player with wheat_count = count }
+  let add_ore player =
+    let count = player.ore_count + 1 in
+    { player with ore_count = count }
+
+  let add_wood player =
+    let count = player.wood_count + 1 in
+    { player with wood_count = count }
+
+  let add_wheat player =
+    let count = player.wheat_count + 1 in
+    { player with wheat_count = count }
+
+  let add_clay player =
+    let count = player.clay_count + 1 in
+    { player with clay_count = count }
+
+  let add_sheep player =
+    let count = player.sheep_count + 1 in
+    { player with sheep_count = count }
 
   (** Builds a road on the map at edge road_loc, returns a tuple of the updated player and an integer 0. 
       If the move is illegal, it will return a tuple of 'None' and a number representing the reason for 
