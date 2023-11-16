@@ -18,9 +18,11 @@ let rec repl_road (player : Game.Player.Player.t) (playernum : int)
      then down  "
   in
   print_endline s;
-  let input = int_of_string (read_line ()) in
-  if input < 1 then repl_road player playernum just_placed board
-  else if input > 30 then repl_road player playernum just_placed board
+  let input = try int_of_string (read_line ()) with | Failure("int_of_string") -> 0
+                                                    | _ -> int_of_string (read_line ()) in
+  if input = 0 then match input with | _ -> print_endline "INVALID INPUT";
+  repl_road player playernum just_placed board
+  else if input > 30 || input < 1 then repl_road player playernum just_placed board
   else if
     (not
        ((List.nth (Game.Board.SmallBoard.get_edge_lst board) input).node1
@@ -47,9 +49,12 @@ let rec repl_piece (player : Game.Player.Player.t) (playernum : int)
     "Player " ^ string_of_int playernum ^ "'s " ^ piece ^ " Settlement: "
   in
   print_endline s;
-  let input = int_of_string (read_line ()) in
-  if input < 1 then repl_piece player playernum piece board
-  else if input > 24 then repl_piece player playernum piece board
+  let input = try int_of_string (read_line ()) with | Failure("int_of_string") -> 0
+                                                    | _ -> int_of_string (read_line ())
+in
+  if input = 0 then match input with | _ -> print_endline "INVALID INPUT";
+  repl_piece player playernum piece board
+  else if input > 24 || input < 1 then repl_piece player playernum piece board
   else
     match
       ( Game.Board.SmallBoard.build_settlement board input,
@@ -61,7 +66,8 @@ let rec repl_piece (player : Game.Player.Player.t) (playernum : int)
         repl_piece player playernum piece board
     | _ ->
         failwith
-          "UNEXPECTED BEHAVIOR TURN BACK NOW YOUR LIFE IS IN GREAT DANGER"
+          "UNEXPECTED BEHAVIOR TURN BACK NOW YOUR LIFE IS IN GREAT DANGER" 
+
 
 let () =
   print_endline "\n\nWelcome to Catan!\n";
