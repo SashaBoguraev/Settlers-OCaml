@@ -52,7 +52,6 @@ module Player = struct
 
   (** Getters*)
   let get_clay player = player.clay_count
-
   let get_wood player = player.wood_count
   let get_wheat player = player.wheat_count
   let get_sheep player = player.sheep_count
