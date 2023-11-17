@@ -181,9 +181,11 @@ let rec repl_road (player : Game.Player.Player.t)
      then down  "
   in
   print_endline s;
-  let input = int_of_string (read_line ()) in
-  if input < 1 then repl_road player board
-  else if input > 30 then repl_road player board
+  let input = try int_of_string (read_line ()) with | Failure("int_of_string") -> 0
+                                                    | _ -> int_of_string (read_line ()) in
+  if input = 0 then match input with | _ -> print_endline "INVALID INPUT";
+  repl_road player board
+  else if input > 30 || input < 1 then repl_road player board
   else
     match
       ( Game.Board.SmallBoard.build_road board input,
@@ -210,9 +212,12 @@ let rec repl_piece (player : Game.Player.Player.t) (playernum : int)
     "Player " ^ string_of_int playernum ^ "'s " ^ piece ^ " Settlement: "
   in
   print_endline s;
-  let input = int_of_string (read_line ()) in
-  if input < 1 then repl_piece player playernum piece board
-  else if input > 24 then repl_piece player playernum piece board
+  let input = try int_of_string (read_line ()) with | Failure("int_of_string") -> 0
+                                                    | _ -> int_of_string (read_line ())
+in
+  if input = 0 then match input with | _ -> print_endline "INVALID INPUT";
+  repl_piece player playernum piece board
+  else if input > 24 || input < 1 then repl_piece player playernum piece board
   else
     match
       ( Game.Board.SmallBoard.build_settlement board input,
@@ -224,13 +229,7 @@ let rec repl_piece (player : Game.Player.Player.t) (playernum : int)
         repl_piece player playernum piece board
     | _ ->
         failwith
-          "UNEXPECTED BEHAVIOR TURN BACK NOW YOUR LIFE IS IN GREAT DANGER"
-
-let rec repl_turn turn_number player1 player2 board : Game.Player.Player.t =
-  if turn_number > 10 then player1
-  else
-    let p1, p2, board_new = turn turn_number (player1, player2) board in
-    repl_turn (turn_number + 1) p1 p2 board_new
+          "UNEXPECTED BEHAVIOR TURN BACK NOW YOUR LIFE IS IN GREAT DANGER" 
 
 let () =
   print_endline "\n\nWelcome to Catan!\n";
