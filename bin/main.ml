@@ -184,17 +184,8 @@ let rec repl_road (player : Game.Player.Player.t)
   let input = try int_of_string (read_line ()) with | Failure("int_of_string") -> 0
                                                     | _ -> int_of_string (read_line ()) in
   if input = 0 then match input with | _ -> print_endline "INVALID INPUT";
-  repl_road player playernum just_placed board
-  else if input > 30 || input < 1 then repl_road player playernum just_placed board
-  else if
-    (not
-       ((List.nth (Game.Board.SmallBoard.get_edge_lst board) input).node1
-       = List.nth (Game.Board.SmallBoard.get_node_lst board) (just_placed - 1)))
-    && not
-         ((List.nth (Game.Board.SmallBoard.get_edge_lst board) input).node2
-         = List.nth (Game.Board.SmallBoard.get_node_lst board) (just_placed - 1)
-         )
-  then repl_road player playernum just_placed board
+  repl_road player board
+  else if input > 30 || input < 1 then repl_road player board
   else
     match
       ( Game.Board.SmallBoard.build_road board input,
