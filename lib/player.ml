@@ -33,6 +33,7 @@ end
 
 module Player = struct
   type t = {
+    buildable_locs : int list;
     clay_count : int;
     wood_count : int;
     sheep_count : int;
@@ -51,6 +52,8 @@ module Player = struct
   }
 
   (** Getters*)
+  let get_buildable_locs player = player.buildable_locs
+
   let get_clay player = player.clay_count
   let get_wood player = player.wood_count
   let get_wheat player = player.wheat_count
@@ -69,8 +72,9 @@ module Player = struct
 
   let empty =
     {
-      clay_count = 2;
-      wood_count = 2;
+      buildable_locs = [];
+      clay_count = 4;
+      wood_count = 4;
       sheep_count = 2;
       ore_count = 0;
       wheat_count = 2;
@@ -106,13 +110,58 @@ module Player = struct
     let count = player.sheep_count + 1 in
     { player with sheep_count = count }
 
+  let edge_road_pairs =
+    [
+      (1, 3);
+      (1, 4);
+      (2, 4);
+      (2, 5);
+      (3, 6);
+      (4, 7);
+      (5, 8);
+      (6, 9);
+      (6, 10);
+      (7, 10);
+      (7, 11);
+      (8, 11);
+      (8, 12);
+      (9, 13);
+      (10, 14);
+      (11, 15);
+      (12, 16);
+      (13, 17);
+      (14, 17);
+      (14, 18);
+      (15, 18);
+      (15, 19);
+      (19, 16);
+      (17, 20);
+      (18, 21);
+      (19, 22);
+      (20, 23);
+      (21, 23);
+      (21, 24);
+      (22, 24);
+    ]
+
   (** Builds a road on the map at edge road_loc, returns a tuple of the updated player and an integer 0. 
       If the move is illegal, it will return a tuple of 'None' and a number representing the reason for 
       the error. The key is as follows:
       1: Player doesn't have enough roads to play
       2: Player doesn't have enough resources to play*)
-  let build_road player loc =
-    if player.clay_count > 0 && player.wood_count > 0 && player.road_count > 0
+  let build_road (player : t) (loc : int) : t option * int =
+    if
+      (not
+         (List.mem
+            (fst (List.nth edge_road_pairs (loc - 1)))
+            player.buildable_locs))
+      && not
+           (List.mem
+              (snd (List.nth edge_road_pairs (loc - 1)))
+              player.buildable_locs)
+    then (None, 3)
+    else if
+      player.clay_count > 0 && player.wood_count > 0 && player.road_count > 0
     then
       ( Some
           {
@@ -121,6 +170,10 @@ module Player = struct
             wood_count = player.wood_count - 1;
             road_count = player.road_count - 1;
             road_locations = (loc - 1) :: player.road_locations;
+            buildable_locs =
+              fst (List.nth edge_road_pairs loc)
+              :: snd (List.nth edge_road_pairs loc)
+              :: player.buildable_locs;
           },
         0 )
     else if player.road_count == 0 then (None, 1)
@@ -146,6 +199,7 @@ module Player = struct
             wheat_count = player.wheat_count - 1;
             settlement_count = player.settlement_count - 1;
             settlement_locations = (loc - 1) :: player.settlement_locations;
+            buildable_locs = loc :: player.buildable_locs;
           },
         0 )
     else if player.settlement_count == 0 then (None, 1)
@@ -166,6 +220,7 @@ module Player = struct
             wheat_count = player.wheat_count - 2;
             city_count = player.city_count - 1;
             city_locations = (loc - 1) :: player.city_locations;
+            buildable_locs = loc :: player.buildable_locs;
           },
         0 )
     else if player.city_count == 0 then (None, 1)
