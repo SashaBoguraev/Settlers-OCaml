@@ -28,6 +28,12 @@ module type BoardType = sig
   val get_adj_lst : t -> node option list list
   val get_node_lst : t -> node list
   val get_edge_lst : t -> edge list
+  val get_node_border_one_resource: node -> resource option
+  val get_node_border_one_number: node -> int option
+  val get_node_border_two_resource: node -> resource option
+  val get_node_border_two_number: node -> int option
+  val get_node_border_three_resource: node -> resource option
+  val get_node_border_three_number: node -> int option
 end
 
 module SmallBoard : BoardType = struct
@@ -40,6 +46,13 @@ module SmallBoard : BoardType = struct
   let get_adj_lst board = board.adj_lst
   let get_node_lst board = board.node_lst
   let get_edge_lst board = board.edge_lst
+
+  let get_node_border_one_resource node = node.border_one_resource
+  let get_node_border_one_number node = node.border_one_number
+  let get_node_border_two_resource node = node.border_two_resource
+  let get_node_border_two_number node = node.border_two_number
+  let get_node_border_three_resource node = node.border_three_resource
+  let get_node_border_three_number node = node.border_three_number
 
   let node_one : node =
     {

@@ -4,7 +4,7 @@
 # Workspace root:
 # /Users/sashaboguraev/Desktop/Cornell/Fall2023/CS3110/CS-3110-Project
 # Auto-detected concurrency: 10
-$ /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /var/folders/kx/cjg9tbld1z95vqhh4kmccp200000gn/T/dune_dc97d7_output
+$ /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /var/folders/kx/cjg9tbld1z95vqhh4kmccp200000gn/T/dune_f9760b_output
 # Dune context:
 #  { name = "default"
 #  ; kind = "default"
@@ -122,12 +122,20 @@ $ /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlc.opt -config > /var/folders
 #      }
 #  }
 $ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -I bin/.main.eobjs/byte -I bin/.main.eobjs/native -I /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml/str -I lib/.game.objs/byte -I lib/.game.objs/native -intf-suffix .ml -no-alias-deps -opaque -o bin/.main.eobjs/native/dune__exe__Main.cmx -c -impl bin/main.ml)
-> File "bin/main.ml", line 194, characters 46-58:
-> 194 |   print_endline "Enter Anything to Continue"; read_line ();
+> File "bin/main.ml", line 249, characters 46-58:
+> 249 |   print_endline "Enter Anything to Continue"; read_line ();
 >                                                     ^^^^^^^^^^^^
 > Warning 10 [non-unit-statement]: this expression should have type unit.
-> File "bin/main.ml", line 84, characters 6-11:
-> 84 |   let input = read_line () in print_endline ""
+> File "bin/main.ml", line 97, characters 6-11:
+> 97 |   let input = read_line () in (new_player, snd players, board))
 >            ^^^^^
 > Warning 26 [unused-var]: unused variable input.
+> File "bin/main.ml", line 134, characters 6-11:
+> 134 |   let input = read_line () in (fst players, new_player, board))
+>             ^^^^^
+> Warning 26 [unused-var]: unused variable input.
+> File "bin/main.ml", line 251, characters 19-25:
+> 251 |   let x = 0 in let winner = repl_turn x p1 p2 board in print_endline "The winner is player "; print_int 1;
+>                          ^^^^^^
+> Warning 26 [unused-var]: unused variable winner.
 $ (cd _build/default && /Users/sashaboguraev/.opam/cs3110-2023fa/bin/ocamlopt.opt -w +a-4-6-7-9-27-29-30-32..42-44-45-48-50-60-66..70 -warn-error -a+31 -g -o bin/main.exe /Users/sashaboguraev/.opam/cs3110-2023fa/lib/ocaml/str/str.cmxa lib/game.cmxa bin/.main.eobjs/native/dune__exe__Main.cmx)
