@@ -28,6 +28,12 @@ module type BoardType = sig
   val get_adj_lst : t -> node option list list
   val get_node_lst : t -> node list
   val get_edge_lst : t -> edge list
+  val get_node_border_one_resource : node -> resource option
+  val get_node_border_one_number : node -> int option
+  val get_node_border_two_resource : node -> resource option
+  val get_node_border_two_number : node -> int option
+  val get_node_border_three_resource : node -> resource option
+  val get_node_border_three_number : node -> int option
 end
 
 module SmallBoard : BoardType = struct
@@ -40,6 +46,12 @@ module SmallBoard : BoardType = struct
   let get_adj_lst board = board.adj_lst
   let get_node_lst board = board.node_lst
   let get_edge_lst board = board.edge_lst
+  let get_node_border_one_resource node = node.border_one_resource
+  let get_node_border_one_number node = node.border_one_number
+  let get_node_border_two_resource node = node.border_two_resource
+  let get_node_border_two_number node = node.border_two_number
+  let get_node_border_three_resource node = node.border_three_resource
+  let get_node_border_three_number node = node.border_three_number
 
   let node_one : node =
     {
@@ -481,11 +493,7 @@ module SmallBoard : BoardType = struct
           board.edge_lst
       in
       Some
-        {
-          adj_lst = build_vertices nodes;
-          node_lst = nodes;
-          edge_lst = new_edges;
-        }
+        { adj_lst = get_adj_lst board; node_lst = nodes; edge_lst = new_edges }
 
   (** Builds a settlement on the map at vertex settlement_loc, returns the updated board. 
     If the move is illegal, it will return None (a move is illegal if there is already a piece at the desired location) *)
@@ -506,7 +514,7 @@ module SmallBoard : BoardType = struct
         {
           adj_lst = build_vertices new_nodes;
           node_lst = new_nodes;
-          edge_lst = edges;
+          edge_lst = board.edge_lst;
         }
 
   (** Builds a city on the map at vertex city_loc, returns the updated board. 
@@ -528,7 +536,7 @@ module SmallBoard : BoardType = struct
         {
           adj_lst = build_vertices new_nodes;
           node_lst = new_nodes;
-          edge_lst = edges;
+          edge_lst = board.edge_lst;
         }
     else None
 end
