@@ -306,9 +306,10 @@ let rec turn (count : int)
     let p, b = build new_player_two board 2 in
     (new_player_one, p, b)
 
-let rec repl_turn turn_number player1 player2 board : Game.Player.Player.t =
-  if (Game.Player.Player.get_victory_points player1) >= 5 then player1
-  else if (Game.Player.Player.get_victory_points player2) >= 5 then player2
+let rec repl_turn turn_number player1 player2 board : string * Game.Player.Player.t =
+  if (Game.Player.Player.get_victory_points player1) >= 5 && (Game.Player.Player.get_victory_points player2) >= 5 then "There is a draw!", player2
+  else if (Game.Player.Player.get_victory_points player1) >= 5 then "The winner is Player 1", player1
+  else if (Game.Player.Player.get_victory_points player2) >= 5 then "The winner is Player 2", player2
   else
     let p1, p2, board_new = turn turn_number (player1, player2) board in
     repl_turn (turn_number + 1) p1 p2 board_new
@@ -378,6 +379,5 @@ let () =
   read_line ();
 
   let x = 0 in
-  let winner = repl_turn x p1 p2 board in
-  print_endline "The winner is player ";
-  print_int 1
+  let message, winner = repl_turn x p1 p2 board in
+  print_endline message
