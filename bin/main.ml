@@ -73,41 +73,6 @@ let assign_resources node_list player roll : Game.Player.Player.t =
   in
   player_rec_three
 
-(* let print_hand (player : Game.Player.Player.t) : unit =
-    print_string "Player has settlements at: ";
-    print_endline
-      (lst2str (Game.Player.Player.get_settlement_locations player));
-    print_endline "Player has in their hand: ";
-    print_string "Settlements: ";
-    print_endline
-      (string_of_int (Game.Player.Player.get_settlement_count player));
-    print_string "Roads: ";
-    print_endline (string_of_int (Game.Player.Player.get_road_count player));
-    print_string "Cities: ";
-    print_endline (string_of_int (Game.Player.Player.get_city_count player));
-    print_string "Clay: ";
-    print_endline (string_of_int (Game.Player.Player.get_clay player));
-    print_string "Wood: ";
-    print_endline (string_of_int (Game.Player.Player.get_wood player));
-    print_string "Wheat: ";
-    print_endline (string_of_int (Game.Player.Player.get_wheat player));
-    print_string "Sheep: ";
-    print_endline (string_of_int (Game.Player.Player.get_sheep player));
-    print_string "Ore: ";
-    print_endline (string_of_int (Game.Player.Player.get_ore player));
-    print_string "Dev Cards: ";
-    print_endline
-      (string_of_int (Game.Player.Player.get_dev_card_count player));
-    print_string "Army Size: ";
-    print_endline (string_of_int (Game.Player.Player.get_army_count player));
-    print_string "Longest Road: ";
-    print_endline (string_of_int (Game.Player.Player.get_long_road player));
-    print_string "Victory Points: ";
-    print_endline
-      (string_of_int (Game.Player.Player.get_victory_points player));
-    print_endline "";
-    print_endline ""; *)
-
 (* read-eval-print loop for a road placement
    if valid input: place road, exit loop and print setup output
    if invalid input: rerun loop*)
@@ -213,8 +178,8 @@ let rec repl_city (player : Game.Player.Player.t)
         print_endline "There is already a city here";
         repl_city player board
 
-let rec build (player : Game.Player.Player.t) (board : Game.Board.SmallBoard.t)
-    (player_num : int) : Game.Player.Player.t * Game.Board.SmallBoard.t =
+let rec build (player : Game.Player.Player.t)(board : Game.Board.SmallBoard.t)
+    (player_num : int) : Game.Player.Player.t * Game.Board.SmallBoard.t=
   print_endline
     "Enter 1 to build a road, 2 to build a settlement, 3 to build a city, or 4 \
      to end turn: ";
@@ -266,88 +231,80 @@ let rec turn (count : int)
   print_int dice_roll;
   print_endline "";
   let node_list = Game.Board.SmallBoard.get_node_lst board in
-  if count mod 2 = 0 then (
-    let new_player = assign_resources node_list (fst players) dice_roll in
-    print_string "Player one has settlements at: ";
-    print_endline
-      (lst2str (Game.Player.Player.get_settlement_locations new_player));
-    (* print_string "Player one has roads at: ";
-       print_string (lst2str (Game.Player.Player.get_road_locations new_player));
-       print_string "Player one has cities at: ";
-       print_string (lst2str (Game.Player.Player.get_city_locations new_player)); *)
-    print_endline "Player one has in their hand: ";
-    print_string "Settlements: ";
-    print_endline
-      (string_of_int (Game.Player.Player.get_settlement_count new_player));
-    print_string "Roads: ";
-    print_endline (string_of_int (Game.Player.Player.get_road_count new_player));
-    print_string "Cities: ";
-    print_endline (string_of_int (Game.Player.Player.get_city_count new_player));
-    print_string "Clay: ";
-    print_endline (string_of_int (Game.Player.Player.get_clay new_player));
-    print_string "Wood: ";
-    print_endline (string_of_int (Game.Player.Player.get_wood new_player));
-    print_string "Wheat: ";
-    print_endline (string_of_int (Game.Player.Player.get_wheat new_player));
-    print_string "Sheep: ";
-    print_endline (string_of_int (Game.Player.Player.get_sheep new_player));
-    print_string "Ore: ";
-    print_endline (string_of_int (Game.Player.Player.get_ore new_player));
-    print_string "Dev Cards: ";
-    print_endline
-      (string_of_int (Game.Player.Player.get_dev_card_count new_player));
-    print_string "Army Size: ";
-    print_endline (string_of_int (Game.Player.Player.get_army_count new_player));
-    print_string "Longest Road: ";
-    print_endline (string_of_int (Game.Player.Player.get_long_road new_player));
-    print_string "Victory Points: ";
-    print_endline
-      (string_of_int (Game.Player.Player.get_victory_points new_player));
-    print_endline "";
-    print_endline "";
-    let p, b = build new_player board 1 in
-    (p, snd players, b))
-  else
-    let new_player = assign_resources node_list (snd players) dice_roll in
+  let new_player_one = assign_resources node_list (fst players) dice_roll in
+  print_string "Player one has settlements at: ";
+  print_endline
+    (lst2str (Game.Player.Player.get_settlement_locations new_player_one));
+  print_endline "Player one has in their hand: ";
+  print_string "Settlements: ";
+  print_endline
+    (string_of_int (Game.Player.Player.get_settlement_count new_player_one));
+  print_string "Roads: ";
+  print_endline (string_of_int (Game.Player.Player.get_road_count new_player_one));
+  print_string "Cities: ";
+  print_endline (string_of_int (Game.Player.Player.get_city_count new_player_one));
+  print_string "Clay: ";
+  print_endline (string_of_int (Game.Player.Player.get_clay new_player_one));
+  print_string "Wood: ";
+  print_endline (string_of_int (Game.Player.Player.get_wood new_player_one));
+  print_string "Wheat: ";
+  print_endline (string_of_int (Game.Player.Player.get_wheat new_player_one));
+  print_string "Sheep: ";
+  print_endline (string_of_int (Game.Player.Player.get_sheep new_player_one));
+  print_string "Ore: ";
+  print_endline (string_of_int (Game.Player.Player.get_ore new_player_one));
+  print_string "Dev Cards: ";
+  print_endline
+    (string_of_int (Game.Player.Player.get_dev_card_count new_player_one));
+  print_string "Army Size: ";
+  print_endline (string_of_int (Game.Player.Player.get_army_count new_player_one));
+  print_string "Longest Road: ";
+  print_endline (string_of_int (Game.Player.Player.get_long_road new_player_one));
+  print_string "Victory Points: ";
+  print_endline
+    (string_of_int (Game.Player.Player.get_victory_points new_player_one));
+  print_endline "";
+  print_endline "";
+  let new_player_two = assign_resources node_list (snd players) dice_roll in
     print_string "Player two has settlements at: ";
     print_endline
-      (lst2str (Game.Player.Player.get_settlement_locations new_player));
-    (* print_string "Player one has roads at: ";
-       print_string (lst2str (Game.Player.Player.get_road_locations new_player));
-       print_string "Player one has cities at: ";
-       print_string (lst2str (Game.Player.Player.get_city_locations new_player)); *)
+      (lst2str (Game.Player.Player.get_settlement_locations new_player_two));
     print_endline "Player two has in their hand: ";
     print_string "Settlements: ";
     print_endline
-      (string_of_int (Game.Player.Player.get_settlement_count new_player));
+      (string_of_int (Game.Player.Player.get_settlement_count new_player_two));
     print_string "Roads: ";
-    print_endline (string_of_int (Game.Player.Player.get_road_count new_player));
+    print_endline (string_of_int (Game.Player.Player.get_road_count new_player_two));
     print_string "Cities: ";
-    print_endline (string_of_int (Game.Player.Player.get_city_count new_player));
+    print_endline (string_of_int (Game.Player.Player.get_city_count new_player_two));
     print_string "Clay: ";
-    print_endline (string_of_int (Game.Player.Player.get_clay new_player));
+    print_endline (string_of_int (Game.Player.Player.get_clay new_player_two));
     print_string "Wood: ";
-    print_endline (string_of_int (Game.Player.Player.get_wood new_player));
+    print_endline (string_of_int (Game.Player.Player.get_wood new_player_two));
     print_string "Wheat: ";
-    print_endline (string_of_int (Game.Player.Player.get_wheat new_player));
+    print_endline (string_of_int (Game.Player.Player.get_wheat new_player_two));
     print_string "Sheep: ";
-    print_endline (string_of_int (Game.Player.Player.get_sheep new_player));
+    print_endline (string_of_int (Game.Player.Player.get_sheep new_player_two));
     print_string "Ore: ";
-    print_endline (string_of_int (Game.Player.Player.get_ore new_player));
+    print_endline (string_of_int (Game.Player.Player.get_ore new_player_two));
     print_string "Dev Cards: ";
     print_endline
-      (string_of_int (Game.Player.Player.get_dev_card_count new_player));
+      (string_of_int (Game.Player.Player.get_dev_card_count new_player_two));
     print_string "Army Size: ";
-    print_endline (string_of_int (Game.Player.Player.get_army_count new_player));
+    print_endline (string_of_int (Game.Player.Player.get_army_count new_player_two));
     print_string "Longest Road: ";
-    print_endline (string_of_int (Game.Player.Player.get_long_road new_player));
+    print_endline (string_of_int (Game.Player.Player.get_long_road new_player_two));
     print_string "Victory Points: ";
     print_endline
-      (string_of_int (Game.Player.Player.get_victory_points new_player));
+      (string_of_int (Game.Player.Player.get_victory_points new_player_two));
     print_endline "";
     print_endline "";
-    let p, b = build new_player board 2 in
-    (fst players, p, b)
+  if count mod 2 = 0 then (
+    let p, b = build new_player_one board 1 in
+    (p, new_player_two, b))
+  else
+    let p, b = build new_player_two board 2 in
+    (new_player_one, p, b)
 
 let rec repl_turn turn_number player1 player2 board : Game.Player.Player.t =
   if turn_number > 50 then player1
