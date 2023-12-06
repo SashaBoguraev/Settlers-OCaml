@@ -307,7 +307,8 @@ let rec turn (count : int)
     (new_player_one, p, b)
 
 let rec repl_turn turn_number player1 player2 board : Game.Player.Player.t =
-  if turn_number > 50 then player1
+  if (Game.Player.Player.get_victory_points player1) >= 5 then player1
+  else if (Game.Player.Player.get_victory_points player2) >= 5 then player2
   else
     let p1, p2, board_new = turn turn_number (player1, player2) board in
     repl_turn (turn_number + 1) p1 p2 board_new
