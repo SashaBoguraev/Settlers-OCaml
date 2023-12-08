@@ -26,6 +26,8 @@ module type PlayerType = sig
   val add_sheep : t -> t
   val add_wheat : t -> t
 
+  val add_point : t -> t
+
   (* val add_dev_card : t -> t
 
      val play_dev_card : t -> t *)
@@ -109,6 +111,10 @@ module Player = struct
   let add_sheep player =
     let count = player.sheep_count + 1 in
     { player with sheep_count = count }
+  
+  let add_point player =
+    let count = player.victory_points + 1 in
+    { player with victory_points = count }
 
   let edge_road_pairs =
     [

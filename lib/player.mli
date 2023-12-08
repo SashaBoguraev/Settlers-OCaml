@@ -25,6 +25,7 @@ module type PlayerType = sig
   val add_clay : t -> t
   val add_sheep : t -> t
   val add_wheat : t -> t
+  val add_point : t -> t
 
   (* val add_dev_card : t -> t
 

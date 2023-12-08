@@ -87,7 +87,7 @@ let rec repl_road (player : Game.Player.Player.t)
   print_endline s;
   let input =
     try int_of_string (read_line ()) with
-    | Failure "int_of_string" -> 0
+    | Failure _ -> 0
     | _ -> int_of_string (read_line ())
   in
   if input = 0 then (
@@ -118,7 +118,7 @@ let rec repl_piece (player : Game.Player.Player.t) (playernum : int)
   print_endline s;
   let input =
     try int_of_string (read_line ()) with
-    | Failure "int_of_string" -> 0
+    | Failure _ -> 0
     | _ -> int_of_string (read_line ())
   in
   if input = 0 then (
@@ -132,9 +132,9 @@ let rec repl_piece (player : Game.Player.Player.t) (playernum : int)
       ( Game.Board.SmallBoard.build_settlement board input,
         Game.Player.Player.build_settlment player input )
     with
-    | Some a, (Some b, _) -> (a, b, input)
+    | Some a, (Some b, _) -> (a, Game.Player.Player.add_point b, input)
     | None, _ ->
-        print_endline "There is already a piece at this settlment location";
+        print_endline "There is already a piece at this settlement location";
         repl_piece player playernum piece board
     | _ ->
         failwith
@@ -148,7 +148,7 @@ let rec repl_city (player : Game.Player.Player.t)
   print_endline (lst2str (Game.Player.Player.get_settlement_locations player));
   let input =
     try int_of_string (read_line ()) with
-    | Failure "int_of_string" -> 0
+    | Failure _ -> 0
     | _ -> int_of_string (read_line ())
   in
   if input = 0 then (
@@ -170,7 +170,7 @@ let rec repl_city (player : Game.Player.Player.t)
       ( Game.Board.SmallBoard.build_city board input,
         Game.Player.Player.build_city player input )
     with
-    | Some a, (Some b, _) -> (a, b)
+    | Some a, (Some b, _) -> (a, Game.Player.Player.add_point b)
     | _, (None, _) ->
         print_endline "Not a valid city location";
         repl_city player board
@@ -185,7 +185,7 @@ let rec build (player : Game.Player.Player.t)(board : Game.Board.SmallBoard.t)
      to end turn: ";
   let input =
     try int_of_string (read_line ()) with
-    | Failure "int_of_string" -> 0
+    | Failure _ -> 0
     | _ -> int_of_string (read_line ())
   in
   if input = 0 then (
@@ -217,6 +217,10 @@ let rec build (player : Game.Player.Player.t)(board : Game.Board.SmallBoard.t)
     | _ ->
         print_endline "Turn ended";
         (player, board)
+  
+let check_input input = match input with
+| "QUIT" -> None
+| _ -> Some input
 
 let rec turn (count : int)
     (players : Game.Player.Player.t * Game.Player.Player.t)
