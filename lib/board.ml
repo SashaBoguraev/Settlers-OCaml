@@ -1,5 +1,6 @@
 open Player
 
+(** The resources used in the game *)
 type resource = Clay | Wood | Sheep | Ore | Wheat
 
 type node = {
@@ -12,28 +13,66 @@ type node = {
   is_settlement : bool;
   is_city : bool;
 }
+(** A node of the board representing a settlement location in the game *)
 
 type edge = { node1 : node; node2 : node; is_road : bool }
+(** An edge of the board representing a road location in the game *)
 
 module type BoardType = sig
   type t
 
   val build_vertices : node list -> node option list list
+  (** Takes in all nodes on the board for a given game (in given state at that time), 
+      and constructs the adgacency list of other neighboring nodes in the game, 
+      returning the adgacency list. A neighbor is Some node, and a lack of neighbor is none *)
+
   val edges : edge list
+  (** All edges in the game board *)
+
   val nodes : node list
+  (** All nodes in the game board *)
+
   val initial_board : t
+  (** A board representing the initial board before any pieces are placed *)
+
   val build_road : t -> int -> t option
+  (** Builds a road on the map at edge road_loc, returns the updated board. 
+      If the move is illegal, it will return None (a move is illegal if there is already a piece at the desired location) *)
+
   val build_settlement : t -> int -> t option
+  (** Builds a settlement on the map at vertex settlement_loc, returns the updated board. 
+    If the move is illegal, it will return None (a move is illegal if there is already a piece at the desired location) *)
+
   val build_city : t -> int -> t option
+  (** Builds a city on the map at vertex city_loc, returns the updated board. 
+  If the move is illegal, it will return None (a move is illegal if there is already a piece at the desired location) *)
+
   val get_adj_lst : t -> node option list list
+  (** Takes in a node and returns the board's corresponding adjacency list *)
+
   val get_node_lst : t -> node list
+  (** Takes in a node and returns the board's corresponding node list *)
+
   val get_edge_lst : t -> edge list
+  (** Takes in a node and returns the board's corresponding edge list *)
+
   val get_node_border_one_resource : node -> resource option
+  (** Takes in a node and returns the resource of the first neighbor *)
+
   val get_node_border_one_number : node -> int option
+  (** Takes in a node and returns the roll number of the first neighbor *)
+
   val get_node_border_two_resource : node -> resource option
+  (** Takes in a node and returns the resource of the second neighbor *)
+
   val get_node_border_two_number : node -> int option
+  (** Takes in a node and returns the roll number of the second neighbor *)
+
   val get_node_border_three_resource : node -> resource option
+  (** Takes in a node and returns the resource of the third neighbor *)
+
   val get_node_border_three_number : node -> int option
+  (** Takes in a node and returns the roll number of the third neighbor *)
 end
 
 module SmallBoard : BoardType = struct
@@ -43,14 +82,31 @@ module SmallBoard : BoardType = struct
     edge_lst : edge list;
   }
 
+  (** Takes in a node and returns the board's corresponding adjacency list *)
   let get_adj_lst board = board.adj_lst
+
+  (** Takes in a node and returns the board's corresponding node list *)
   let get_node_lst board = board.node_lst
+
+  (** Takes in a node and returns the board's corresponding edge list *)
   let get_edge_lst board = board.edge_lst
+
+  (** Takes in a node and returns the resource of the first neighbor *)
   let get_node_border_one_resource node = node.border_one_resource
+
+  (** Takes in a node and returns the roll number of the first neighbor *)
   let get_node_border_one_number node = node.border_one_number
+
+  (** Takes in a node and returns the resource of the second neighbor *)
   let get_node_border_two_resource node = node.border_two_resource
+
+  (** Takes in a node and returns the roll number of the second neighbor *)
   let get_node_border_two_number node = node.border_two_number
+
+  (** Takes in a node and returns the resource of the third neighbor *)
   let get_node_border_three_resource node = node.border_three_resource
+
+  (** Takes in a node and returns the roll number of the third neighbor *)
   let get_node_border_three_number node = node.border_three_number
 
   let node_one : node =
@@ -341,6 +397,7 @@ module SmallBoard : BoardType = struct
       is_city = false;
     }
 
+  (** List of all nodes in the game *)
   let nodes =
     [
       node_one;
@@ -369,6 +426,9 @@ module SmallBoard : BoardType = struct
       node_twentyfour;
     ]
 
+  (** Takes in all nodes on the board for a given game (in given state at that time), 
+      and constructs the adgacency list of other neighboring nodes in the game, 
+      returning the adgacency list. A neighbor is Some node, and a lack of neighbor is none *)
   let build_vertices (all_nodes : node list) : node option list list =
     [
       [ None; Some (List.nth all_nodes 2); Some (List.nth all_nodes 3) ];
@@ -445,6 +505,7 @@ module SmallBoard : BoardType = struct
       [ Some (List.nth all_nodes 20); Some (List.nth all_nodes 21); None ];
     ]
 
+  (** All edges in the game board *)
   let edges =
     [
       { node1 = node_one; node2 = node_three; is_road = false };
@@ -479,6 +540,7 @@ module SmallBoard : BoardType = struct
       { node1 = node_twentytwo; node2 = node_twentyfour; is_road = false };
     ]
 
+  (** A board representing the initial board before any pieces are placed *)
   let initial_board =
     { adj_lst = build_vertices nodes; node_lst = nodes; edge_lst = edges }
 
@@ -494,7 +556,11 @@ module SmallBoard : BoardType = struct
           board.edge_lst
       in
       Some
-        { adj_lst = get_adj_lst board; node_lst = board.node_lst; edge_lst = new_edges }
+        {
+          adj_lst = get_adj_lst board;
+          node_lst = board.node_lst;
+          edge_lst = new_edges;
+        }
 
   (** Builds a settlement on the map at vertex settlement_loc, returns the updated board. 
     If the move is illegal, it will return None (a move is illegal if there is already a piece at the desired location) *)
@@ -521,10 +587,7 @@ module SmallBoard : BoardType = struct
   (** Builds a city on the map at vertex city_loc, returns the updated board. 
   If the move is illegal, it will return None (a move is illegal if there is already a piece at the desired location) *)
   let build_city (board : t) (city_loc : int) : t option =
-    if
-      ((*List.nth board.node_lst (city_loc - 1)).is_settlement
-      && *)not (List.nth board.node_lst (city_loc - 1)).is_city)
-    then
+    if not (List.nth board.node_lst (city_loc - 1)).is_city then
       let new_nodes =
         List.mapi
           (fun i el ->

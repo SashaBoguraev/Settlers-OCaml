@@ -56,18 +56,21 @@ let set_up_player =
 
 module Test_Board = Game.Board
 
-
 let initial_board = Test_Board.SmallBoard.initial_board
 
-let board_with_settlement24 = Test_Board.SmallBoard.build_settlement initial_board 24
+let board_with_settlement24 =
+  Test_Board.SmallBoard.build_settlement initial_board 24
 
-let board_with_settlement1 = Test_Board.SmallBoard.build_settlement initial_board 1 
+let board_with_settlement1 =
+  Test_Board.SmallBoard.build_settlement initial_board 1
 
 let board_with_road30 = Test_Board.SmallBoard.build_road initial_board 30
 
-let board_with_settlement24 = Test_Board.SmallBoard.build_settlement initial_board 24
+let board_with_settlement24 =
+  Test_Board.SmallBoard.build_settlement initial_board 24
 
-let board_with_settlement1 = Test_Board.SmallBoard.build_settlement initial_board 1 
+let board_with_settlement1 =
+  Test_Board.SmallBoard.build_settlement initial_board 1
 
 let board_with_road30 = Test_Board.SmallBoard.build_road initial_board 30
 let board_with_road = Test_Board.SmallBoard.build_road initial_board 1
@@ -157,59 +160,51 @@ let player_tests =
 
 let board_tests =
   [
-    ("initial board has 24 nodes" >::  fun _ -> assert_equal 24 (List.length (Board.SmallBoard.get_node_lst initial_board)));
-
-    ("initial board has 30 roads" >::  fun _ -> assert_equal 30 (List.length (Board.SmallBoard.get_edge_lst initial_board)));
-
-    ("board after building has 24 nodes" >::  fun _ -> assert_equal 24 (List.length (Board.SmallBoard.get_node_lst (get_board_from_option board_with_settlement))));
-
-    ("board after building has 30 roads" >::  fun _ -> assert_equal 30 (List.length (Board.SmallBoard.get_edge_lst (get_board_from_option board_with_settlement))));
+    ( "initial board has 24 nodes" >:: fun _ ->
+      assert_equal 24
+        (List.length (Board.SmallBoard.get_node_lst initial_board)) );
+    ( "initial board has 30 roads" >:: fun _ ->
+      assert_equal 30
+        (List.length (Board.SmallBoard.get_edge_lst initial_board)) );
+    ( "board after building has 24 nodes" >:: fun _ ->
+      assert_equal 24
+        (List.length
+           (Board.SmallBoard.get_node_lst
+              (get_board_from_option board_with_settlement))) );
+    ( "board after building has 30 roads" >:: fun _ ->
+      assert_equal 30
+        (List.length
+           (Board.SmallBoard.get_edge_lst
+              (get_board_from_option board_with_settlement))) );
     ( "initial board has no cities" >:: fun _ ->
       assert_equal false
-        (List.nth
-           (Board.SmallBoard.get_node_lst
-              (initial_board
-              ))
-           23)
-          .is_city );
+        (List.nth (Board.SmallBoard.get_node_lst initial_board) 23).is_city );
     ( "initial board has no settlements" >:: fun _ ->
       assert_equal false
-        (List.nth
-           (Board.SmallBoard.get_node_lst
-              (initial_board
-              ))
-           0)
-          .is_settlement );
+        (List.nth (Board.SmallBoard.get_node_lst initial_board) 0).is_settlement
+    );
     ( "initial board has no roads" >:: fun _ ->
       assert_equal false
-        (List.nth
-           (Board.SmallBoard.get_edge_lst
-              (initial_board
-              ))
-           29)
-          .is_road );
+        (List.nth (Board.SmallBoard.get_edge_lst initial_board) 29).is_road );
     ( "build_settlement at 1" >:: fun _ ->
       assert_equal true
         (List.nth
            (Board.SmallBoard.get_node_lst
-              (get_board_from_option
-                 (board_with_settlement1)))
+              (get_board_from_option board_with_settlement1))
            0)
           .is_settlement );
     ( "build_settlement at 24" >:: fun _ ->
       assert_equal true
         (List.nth
            (Board.SmallBoard.get_node_lst
-              (get_board_from_option
-                 (board_with_settlement24)))
+              (get_board_from_option board_with_settlement24))
            23)
           .is_settlement );
     ( "build_road build road 30 and confirm that it exists" >:: fun _ ->
       assert_equal true
         (List.nth
            (Board.SmallBoard.get_edge_lst
-              (get_board_from_option
-                 (board_with_road30)))
+              (get_board_from_option board_with_road30))
            29)
           .is_road );
     ( "build_road build a road and confirm that it exists" >:: fun _ ->
