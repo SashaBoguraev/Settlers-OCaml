@@ -138,6 +138,7 @@ let rec repl_piece (player : Game.Player.Player.t) (playernum : int)
     | None, _ ->
         print_endline "There is already a piece at this settlement location";
         repl_piece player playernum piece board
+    | _, (None, i) -> match i with | 3 -> (print_endline "not a possible location"; repl_piece player playernum piece board)
     | _ ->
         failwith
           "UNEXPECTED BEHAVIOR TURN BACK NOW YOUR LIFE IS IN GREAT DANGER"

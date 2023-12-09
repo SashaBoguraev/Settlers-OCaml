@@ -215,7 +215,7 @@ module Player = struct
       3. It is not a buildable loc *)
       let build_settlment player loc =
         if
-          (not (List.mem (loc - 1) player.buildable_locs))
+          (not (List.mem (loc) player.buildable_locs))
           && get_settlement_count player < 4
         then (None, 3)
         else if
