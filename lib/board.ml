@@ -469,6 +469,7 @@ module SmallBoard : BoardType = struct
       { node1 = node_fourteen; node2 = node_eighteen; is_road = false };
       { node1 = node_fifteen; node2 = node_eighteen; is_road = false };
       { node1 = node_fifteen; node2 = node_nineteen; is_road = false };
+      { node1 = node_sixteen; node2 = node_nineteen; is_road = false };
       { node1 = node_seventeen; node2 = node_twenty; is_road = false };
       { node1 = node_eighteen; node2 = node_twentyone; is_road = false };
       { node1 = node_nineteen; node2 = node_twentytwo; is_road = false };
