@@ -265,7 +265,7 @@ let rec build (player : Game.Player.Player.t)(board : Game.Board.SmallBoard.t)
     | _ ->
         print_endline "Successful city build!";
         build (snd city_build) (fst city_build) player_num) else (print_endline "Not enough resources to do this"; build player board player_num)
-    else if input = 4 then if ((Game.Player.Player.get_clay player > 2) || (Game.Player.Player.get_wood player > 2) || (Game.Player.Player.get_wheat player > 0)|| (Game.Player.Player.get_sheep player > 0)|| (Game.Player.Player.get_ore player > 0)) then let trade_player =  (repl_trade player) in match trade_player with | _ -> build trade_player board player_num 
+    else if input = 4 then if ((Game.Player.Player.get_clay player > 2) || (Game.Player.Player.get_wood player > 2) || (Game.Player.Player.get_wheat player > 2)|| (Game.Player.Player.get_sheep player > 2)|| (Game.Player.Player.get_ore player > 2)) then let trade_player =  (repl_trade player) in match trade_player with | _ -> build trade_player board player_num 
                           else (print_endline "Not enough resources to do this"; build player board player_num)
   else
     match input with
