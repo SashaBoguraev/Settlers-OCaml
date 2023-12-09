@@ -277,6 +277,37 @@ let check_input input = match input with
 | "QUIT" -> None
 | _ -> Some input
 
+let print_board (u : unit) : unit = (
+print_endline "\n";
+print_endline "            1        2";
+print_endline "           / \\     / \\";
+print_endline "        1 /  2\\  3/  4\\";
+print_endline "         /     \\ /     \\";
+print_endline "        3       4       5 ";
+print_endline "       5| Sheep | Wood  |7 ";
+print_endline "        |   6   |   4   | ";
+print_endline "        6       7       8 ";
+print_endline "       / \\     / \\     / \\";
+print_endline "    8 /  9\\ 10/ 11\\ 12/ 13\\";
+print_endline "     /     \\ /     \\ /     \\";
+print_endline "    9       10      11      12";
+print_endline "    | Clay  | Desert|  Wood |";
+print_endline "    |   3   |       |   2   |";
+print_endline "  14|     15|     16|     17|";
+print_endline "   13       14      15      16";
+print_endline "     \\     / \\     / \\     /";
+print_endline "    18\\ 19/ 20\\ 21/ 22\\ 23/";
+print_endline "       \\ /     \\ /     \\ /";
+print_endline "        17      18      19 ";
+print_endline "        | Wheat |  Ore  | ";
+print_endline "      24|   5   |   1   |26 ";
+print_endline "        20      21      22 ";
+print_endline "         \\     / \\     / ";
+print_endline "        27\\ 28/ 29\\ 30/ ";
+print_endline "           \\ /     \\ / ";
+print_endline "           23       24 \n";)
+
+
 let rec turn (count : int)
     (players : Game.Player.Player.t * Game.Player.Player.t)
     (board : Game.Board.SmallBoard.t) :
@@ -289,6 +320,7 @@ let rec turn (count : int)
   print_string " has rolled a ";
   print_int dice_roll;
   print_endline "";
+  print_board ();
   let node_list = Game.Board.SmallBoard.get_node_lst board in
   let new_player_one = assign_resources node_list (fst players) dice_roll in
   print_string "Player one has settlements at: ";
@@ -312,16 +344,10 @@ let rec turn (count : int)
   print_endline (string_of_int (Game.Player.Player.get_sheep new_player_one));
   print_string "Ore: ";
   print_endline (string_of_int (Game.Player.Player.get_ore new_player_one));
-  print_string "Dev Cards: ";
-  print_endline
-    (string_of_int (Game.Player.Player.get_dev_card_count new_player_one));
-  print_string "Army Size: ";
-  print_endline (string_of_int (Game.Player.Player.get_army_count new_player_one));
-  print_string "Longest Road: ";
-  print_endline (string_of_int (Game.Player.Player.get_long_road new_player_one));
   print_string "Victory Points: ";
   print_endline
     (string_of_int (Game.Player.Player.get_victory_points new_player_one));
+
   print_endline "";
   print_endline "";
   let new_player_two = assign_resources node_list (snd players) dice_roll in
@@ -346,16 +372,10 @@ let rec turn (count : int)
     print_endline (string_of_int (Game.Player.Player.get_sheep new_player_two));
     print_string "Ore: ";
     print_endline (string_of_int (Game.Player.Player.get_ore new_player_two));
-    print_string "Dev Cards: ";
-    print_endline
-      (string_of_int (Game.Player.Player.get_dev_card_count new_player_two));
-    print_string "Army Size: ";
-    print_endline (string_of_int (Game.Player.Player.get_army_count new_player_two));
-    print_string "Longest Road: ";
-    print_endline (string_of_int (Game.Player.Player.get_long_road new_player_two));
     print_string "Victory Points: ";
     print_endline
       (string_of_int (Game.Player.Player.get_victory_points new_player_two));
+
     print_endline "";
     print_endline "";
   if count mod 2 = 0 then (
@@ -374,34 +394,8 @@ let rec repl_turn turn_number player1 player2 board : string * Game.Player.Playe
     repl_turn (turn_number + 1) p1 p2 board_new
 
 let () =
-  print_endline "\n\nWelcome to Catan!\n";
-  print_endline "            1        2";
-  print_endline "           / \\     / \\";
-  print_endline "        1 /  2\\  3/  4\\";
-  print_endline "         /     \\ /     \\";
-  print_endline "        3       4       5 ";
-  print_endline "       5| Sheep | Wood  |7 ";
-  print_endline "        |   6   |   4   | ";
-  print_endline "        6       7       8 ";
-  print_endline "       / \\     / \\     / \\";
-  print_endline "    8 /  9\\ 10/ 11\\ 12/ 13\\";
-  print_endline "     /     \\ /     \\ /     \\";
-  print_endline "    9       10      11      12";
-  print_endline "    | Clay  | Desert|  Wood |";
-  print_endline "    |   3   |       |   2   |";
-  print_endline "  14|     15|     16|     17|";
-  print_endline "   13       14      15      16";
-  print_endline "     \\     / \\     / \\     /";
-  print_endline "    18\\ 19/ 20\\ 21/ 22\\ 23/";
-  print_endline "       \\ /     \\ /     \\ /";
-  print_endline "        17      18      19 ";
-  print_endline "        | Wheat |  Ore  | ";
-  print_endline "      24|   5   |   1   |26 ";
-  print_endline "        20      21      22 ";
-  print_endline "         \\     / \\     / ";
-  print_endline "        27\\ 28/ 29\\ 30/ ";
-  print_endline "           \\ /     \\ / ";
-  print_endline "           23       24 \n";
+  print_endline "Welcome to Catan!\n";
+  print_board ();
 
   print_endline
     "Possible locations are labeled 1-24 starting top left and increase right \
@@ -435,7 +429,7 @@ let () =
      0 resources";
 
   print_endline "Enter Anything to Continue";
-  read_line ();
+  (read_line ());
 
   let x = 0 in
   let message, winner = repl_turn x p1 p2 board in

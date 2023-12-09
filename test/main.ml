@@ -56,7 +56,14 @@ let set_up_player =
 
 module Test_Board = Game.Board
 
+
 let initial_board = Test_Board.SmallBoard.initial_board
+
+let board_with_settlement24 = Test_Board.SmallBoard.build_settlement initial_board 24
+
+let board_with_settlement1 = Test_Board.SmallBoard.build_settlement initial_board 1 
+
+let board_with_road30 = Test_Board.SmallBoard.build_road initial_board 30
 let board_with_road = Test_Board.SmallBoard.build_road initial_board 1
 
 let get_player_from_option (p : 'a option) : 'a =
@@ -144,6 +151,14 @@ let player_tests =
 
 let board_tests =
   [
+    ( "build_road build road 30 and confirm that it exists" >:: fun _ ->
+      assert_equal true
+        (List.nth
+           (Board.SmallBoard.get_edge_lst
+              (get_board_from_option
+                 (board_with_road30)))
+           29)
+          .is_road );
     ( "build_road build a road and confirm that it exists" >:: fun _ ->
       assert_equal true
         (List.nth
