@@ -5,7 +5,7 @@ let rec lst2str (lst : int list) : string =
   match lst with
   | h :: [] -> string_of_int (h + 1)
   | h :: t -> string_of_int (h + 1) ^ ", " ^ lst2str t
-  | [] -> failwith "shouldn't happen"
+  | [] -> "None"
 
 let update_resource player (resource : Game.Board.resource option) :
     Game.Player.Player.t =
@@ -63,7 +63,7 @@ let rec loop_settlements_resource_three node_list settlements player roll =
 let assign_resources node_list player roll : Game.Player.Player.t =
   let settlements = Game.Player.Player.get_settlement_locations player in
   let cities = Game.Player.Player.get_city_locations player in
-  let entities = settlements @ cities in
+  let entities = settlements @ cities @ cities in
   let player_rec_one =
     loop_settlements_resource_one node_list entities player roll
   in
@@ -332,6 +332,9 @@ let rec turn (count : int)
   print_string "Player one has roads at: ";
   print_endline
     (lst2str (Game.Player.Player.get_road_locations new_player_one));
+  print_string "Player one has cities at: ";
+  print_endline
+    (lst2str (Game.Player.Player.get_city_locations new_player_one));
   print_endline "Player one has in their hand: ";
   print_string "Settlements: ";
   print_endline
@@ -363,6 +366,9 @@ let rec turn (count : int)
     print_string "Player two has roads at: ";
     print_endline
       (lst2str (Game.Player.Player.get_road_locations new_player_two));
+    print_string "Player two has cities at: ";
+    print_endline
+      (lst2str (Game.Player.Player.get_city_locations new_player_two));
     print_endline "Player two has in their hand: ";
     print_string "Settlements: ";
     print_endline

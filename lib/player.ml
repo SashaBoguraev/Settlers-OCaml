@@ -252,6 +252,7 @@ module Player = struct
             ore_count = player.ore_count - 3;
             wheat_count = player.wheat_count - 2;
             city_count = player.city_count - 1;
+            settlement_locations = List.filter (fun x -> not (x = loc-1)) player.settlement_locations;
             city_locations = (loc - 1) :: player.city_locations;
             buildable_locs = loc :: player.buildable_locs;
           },
