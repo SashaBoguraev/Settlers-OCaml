@@ -328,6 +328,9 @@ let rec turn (count : int)
   print_string "Player one has settlements at: ";
   print_endline
     (lst2str (Game.Player.Player.get_settlement_locations new_player_one));
+  print_string "Player one has roads at: ";
+  print_endline
+    (lst2str (Game.Player.Player.get_road_locations new_player_one));
   print_endline "Player one has in their hand: ";
   print_string "Settlements: ";
   print_endline
@@ -356,6 +359,9 @@ let rec turn (count : int)
     print_string "Player two has settlements at: ";
     print_endline
       (lst2str (Game.Player.Player.get_settlement_locations new_player_two));
+    print_string "Player two has roads at: ";
+    print_endline
+      (lst2str (Game.Player.Player.get_road_locations new_player_two));
     print_endline "Player two has in their hand: ";
     print_string "Settlements: ";
     print_endline

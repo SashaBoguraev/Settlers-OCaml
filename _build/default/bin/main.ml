@@ -97,7 +97,7 @@ let rec repl_road (player : Game.Player.Player.t)
     | _ ->
         print_endline "INVALID INPUT";
         repl_road player board)
-  else if input > 30 || input < 1 then repl_road player board
+  else if input > 30 || input < 1 then (print_endline "Out of range try again"; repl_road player board)
   else
     match
       ( Game.Board.SmallBoard.build_road board input,
@@ -128,7 +128,7 @@ let rec repl_piece (player : Game.Player.Player.t) (playernum : int)
     | _ ->
         print_endline "INVALID INPUT";
         repl_piece player playernum piece board)
-  else if input > 24 || input < 1 then repl_piece player playernum piece board
+  else if input > 24 || input < 1 then (print_endline "Out of range try again";repl_piece player playernum piece board)
   else
     match
       ( Game.Board.SmallBoard.build_settlement board input,
@@ -328,6 +328,9 @@ let rec turn (count : int)
   print_string "Player one has settlements at: ";
   print_endline
     (lst2str (Game.Player.Player.get_settlement_locations new_player_one));
+  print_string "Player one has roads at: ";
+  print_endline
+    (lst2str (Game.Player.Player.get_road_locations new_player_one));
   print_endline "Player one has in their hand: ";
   print_string "Settlements: ";
   print_endline
@@ -356,6 +359,9 @@ let rec turn (count : int)
     print_string "Player two has settlements at: ";
     print_endline
       (lst2str (Game.Player.Player.get_settlement_locations new_player_two));
+    print_string "Player two has roads at: ";
+    print_endline
+      (lst2str (Game.Player.Player.get_road_locations new_player_two));
     print_endline "Player two has in their hand: ";
     print_string "Settlements: ";
     print_endline
