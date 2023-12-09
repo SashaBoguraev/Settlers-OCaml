@@ -494,7 +494,7 @@ module SmallBoard : BoardType = struct
           board.edge_lst
       in
       Some
-        { adj_lst = get_adj_lst board; node_lst = nodes; edge_lst = new_edges }
+        { adj_lst = get_adj_lst board; node_lst = board.node_lst; edge_lst = new_edges }
 
   (** Builds a settlement on the map at vertex settlement_loc, returns the updated board. 
     If the move is illegal, it will return None (a move is illegal if there is already a piece at the desired location) *)

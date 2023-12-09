@@ -405,7 +405,8 @@ let rec repl_turn turn_number player1 player2 board : string * Game.Player.Playe
   else if (Game.Player.Player.get_victory_points player1) >= 5 then "The winner is Player 1", player1
   else if (Game.Player.Player.get_victory_points player2) >= 5 then "The winner is Player 2", player2
   else
-    let p1, p2, board_new = turn turn_number (player1, player2) board in
+    let p1, p2, board_new = 
+    turn turn_number (player1, player2) board in
     repl_turn (turn_number + 1) p1 p2 board_new
 
 let () =
@@ -420,7 +421,6 @@ let () =
   let board = Game.Board.SmallBoard.initial_board in
   let board, p1, just_placed = repl_piece p1 1 "first" board in
   let board, p1 = repl_road p1 board in
-
   let board, p2, just_placed = repl_piece p2 2 "first" board in
   let board, p2 = repl_road p2 board in
   let board, p2, just_placed = repl_piece p2 2 "second" board in
@@ -444,7 +444,6 @@ let () =
      0 resources";
 
   print_endline "Enter Anything to Continue";
-  (read_line ());
 
   let x = 0 in
   let message, winner = repl_turn x p1 p2 board in
