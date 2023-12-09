@@ -79,25 +79,27 @@ let assign_resources node_list player roll : Game.Player.Player.t =
    if valid input: place road, exit loop and print setup output
    if invalid input: rerun loop*)
 let rec repl_road (player : Game.Player.Player.t)
-    (board : Game.Board.SmallBoard.t) :
+    (board : Game.Board.SmallBoard.t) (setup:bool):
     Game.Board.SmallBoard.t * Game.Player.Player.t =
   let s =
-    "Where would you like your road to be? \n\
-    \ Possible locations are labeled 1-30 starting top left and increase right \
+    "Where would you like your road to be?  \
      then down  "
   in
   print_endline s;
+  if (not setup) then print_endline "Type -1 to cancel build";
+
   let input =
     try int_of_string (read_line ()) with
-    | Failure _ -> 0
+    | Failure _ -> 100
     | _ -> int_of_string (read_line ())
   in
-  if input = 0 then (
+  if input = -1 && not setup then (board, player)
+else if input = 100 then (
     match input with
     | _ ->
         print_endline "INVALID INPUT";
-        repl_road player board)
-  else if input > 30 || input < 1 then (print_endline "Out of range try again"; repl_road player board)
+        repl_road player board setup)
+  else if input > 30 || input < 1 then (print_endline "Out of range try again"; repl_road player board setup)
   else
     match
       ( Game.Board.SmallBoard.build_road board input,
@@ -106,29 +108,31 @@ let rec repl_road (player : Game.Player.Player.t)
     | Some a, (Some b, _) -> (a, b)
     | _, (None, _) ->
         print_endline "Not a valid road location";
-        repl_road player board
+        repl_road player board setup
     | None, _ ->
         print_endline "There is already a road here";
-        repl_road player board
+        repl_road player board setup
 
 let rec repl_piece (player : Game.Player.Player.t) (playernum : int)
-    (piece : string) (board : Game.Board.SmallBoard.t) :
+    (piece : string) (board : Game.Board.SmallBoard.t) (setup :bool):
     Game.Board.SmallBoard.t * Game.Player.Player.t * int =
   let s =
-    "Player " ^ string_of_int playernum ^ "'s " ^ piece ^ " Settlement: "
+    "Where would you like your settlement to be?  "
   in
   print_endline s;
+  if (setup = false) then print_endline "Type -1 to cancel build.";
   let input =
     try int_of_string (read_line ()) with
-    | Failure _ -> 0
+    | Failure _ -> 100
     | _ -> int_of_string (read_line ())
   in
-  if input = 0 then (
+  if input = -1 && (not setup )then (board, player, playernum)
+else if input = 100 then (
     match input with
     | _ ->
         print_endline "INVALID INPUT";
-        repl_piece player playernum piece board)
-  else if input > 24 || input < 1 then (print_endline "Out of range try again";repl_piece player playernum piece board)
+        repl_piece player playernum piece board setup)
+  else if input > 24 || input < 1 then (print_endline "Out of range try again";repl_piece player playernum piece board setup)
   else
     match
       ( Game.Board.SmallBoard.build_settlement board input,
@@ -137,8 +141,8 @@ let rec repl_piece (player : Game.Player.Player.t) (playernum : int)
     | Some a, (Some b, _) -> (a, Game.Player.Player.add_point b, input)
     | None, _ ->
         print_endline "There is already a piece at this settlement location";
-        repl_piece player playernum piece board
-    | _, (None, i) -> match i with | 3 -> (print_endline "not a possible location"; repl_piece player playernum piece board)
+        repl_piece player playernum piece board setup
+    | _, (None, i) -> match i with | 3 -> (print_endline "not a possible location"; repl_piece player playernum piece board setup)
     | _ ->
         failwith
           "UNEXPECTED BEHAVIOR TURN BACK NOW YOUR LIFE IS IN GREAT DANGER"
@@ -146,19 +150,20 @@ let rec repl_piece (player : Game.Player.Player.t) (playernum : int)
 let rec repl_city (player : Game.Player.Player.t)
     (board : Game.Board.SmallBoard.t) :
     Game.Board.SmallBoard.t * Game.Player.Player.t =
-  let s = "Where would you like your city to be? \n Possible locations are  " in
+  let s = "Where would you like your city to be? \nType -1 to cancel. Possible locations are  " in
   print_endline s;
   print_endline (lst2str (Game.Player.Player.get_settlement_locations player));
   let input =
     try int_of_string (read_line ()) with
-    | Failure _ -> 0
+    | Failure _ -> 100
     | _ -> int_of_string (read_line ())
   in
-  if input = 0 then (
-    match input with
+  if input = -1 then (board, player)
+else if input = 100 then (
+    (match input with
     | _ ->
         print_endline "INVALID INPUT";
-        repl_city player board)
+        repl_city player board))
   else if
     not
       (List.mem (input - 1)
@@ -183,10 +188,11 @@ let rec repl_city (player : Game.Player.Player.t)
 
 
 let rec repl_trade (player : Game.Player.Player.t) : Game.Player.Player.t = 
-  let s = "What resourse would you like to trade in: " in
+  let s = "What resourse would you like to trade in? Type 'cancel' to cancel " in
   print_endline s; let input = read_line () in
   match input with
-  | s -> if String.lowercase_ascii s = "wheat" then (if (Game.Player.Player.get_wheat player > 2) then (
+  | s -> if String.lowercase_ascii s = "cancel" then player
+  else if String.lowercase_ascii s = "wheat" then (if (Game.Player.Player.get_wheat player > 2) then (
                               print_endline "What resource would you like: ";
                               let input1 = read_line () in match input1 with | s1 -> let new_player = Game.Player.Player.trade_wheat player in if String.lowercase_ascii s1 = "wood" then Game.Player.Player.add_wood new_player
                                                                                     else if String.lowercase_ascii s1 = "ore" then Game.Player.Player.add_ore new_player
@@ -251,22 +257,22 @@ let rec build (player : Game.Player.Player.t)(board : Game.Board.SmallBoard.t)
         build player board player_num)
   else if input < 1 || input > 5 then build player board player_num
   else if input = 1 then if ((Game.Player.Player.get_road_count player > 0) && (Game.Player.Player.get_clay player > 0) && (Game.Player.Player.get_wood player > 0)) then (
-    let road_build = repl_road player board in
+    let road_build = repl_road player board false in
     match road_build with
     | _ ->
-        print_endline "Successful road build!";
+        print_endline "Success!";
         build (snd road_build) (fst road_build) player_num) else (print_endline "Not enough resources to do this"; build player board player_num)
   else if input = 2 then if ((Game.Player.Player.get_settlement_count player > 0) && (Game.Player.Player.get_clay player > 0) && (Game.Player.Player.get_wood player > 0)&& (Game.Player.Player.get_wheat player > 0)&& (Game.Player.Player.get_sheep player > 0)) then(
-    let settlement_build = repl_piece player player_num "next" board in
+    let settlement_build = repl_piece player player_num "next" board false in
     match settlement_build with
     | b, p, i ->
-        print_endline "Successful settlement build!";
+        print_endline "Success!";
         build p b player_num) else (print_endline "Not enough resources to do this"; build player board player_num)
   else if input = 3 then if ((Game.Player.Player.get_city_count player > 0) && (Game.Player.Player.get_wheat player > 1) && (Game.Player.Player.get_ore player > 2)) then(
     let city_build = repl_city player board in
     match city_build with
     | _ ->
-        print_endline "Successful city build!";
+        print_endline "Success!";
         build (snd city_build) (fst city_build) player_num) else (print_endline "Not enough resources to do this"; build player board player_num)
     else if input = 4 then if ((Game.Player.Player.get_clay player > 2) || (Game.Player.Player.get_wood player > 2) || (Game.Player.Player.get_wheat player > 2)|| (Game.Player.Player.get_sheep player > 2)|| (Game.Player.Player.get_ore player > 2)) then let trade_player =  (repl_trade player) in match trade_player with | _ -> build trade_player board player_num 
                           else (print_endline "Not enough resources to do this"; build player board player_num)
@@ -280,8 +286,39 @@ let check_input input = match input with
 | "QUIT" -> None
 | _ -> Some input
 
+let print_rules (u : unit) : unit = (
+  print_endline "====SETUP====\n";
+  print_endline "Player 1 will place a settlement down first at a location of their choosing\n";
+  print_endline "Player 1 will then place a road off their first settlement\n";
+  print_endline "Player 2 will then place a settlement down at a location of their choosing\n";
+  print_endline "Player 2 will then place a road off their first settlement\n";
+  print_endline "Player 2 will then place a settlement down at a location of their choosing\n";
+  print_endline "Player 2 will then place a road off their second settlement\n";
+  print_endline "Player 1 will then place a settlement down at a location of their choosing\n";
+  print_endline "Player 1 will then place a road off their second settlement\n";
+  print_endline "\n====TURNS====\n";
+  print_endline "After setup, turn play will start with player 1, alternating turns after that \n";
+  print_endline "On each turn, a dice will be rolled and update player resources based on the number of settlements a player has on a tile \n";
+  print_endline "Each settlement on the tile that is rolled returns 1 of that resource to a player, each city returns 2 \n";
+  print_endline "The player who's turn it is then has the option to build, trade, or end turn \n";
+  print_endline "They can build either a settlement, road, or city if they have the allocated resources, or trade 3 of the same resource for 1 of another \n";
+  print_endline "A road costs: 1 clay, 1 wood \n";
+  print_endline "A settlement costs: 1 clay, 1 wood, 1 wheat, 1 sheep \n";
+  print_endline "A city costs: 2 wheat, 3 ore \n";
+  print_endline "\n====RULES====\n";
+  print_endline "1. No two settlements can be placed at the same location \n";
+  print_endline "2. No two roads can be placed at the same location \n";
+  print_endline "3. No two cities can be placed at the same location \n";
+  print_endline "4. Roads can only be built off a players settlement or other road \n";
+  print_endline "5. Settlements must be built off a players road \n";
+  print_endline "6. Cities replace settlements, they do not build off roads \n";
+  print_endline "\n Winning the game \n";
+  print_endline "A player has won the game when they reach 5 Victory Points \n";
+  print_endline "A settlement is worth 1 Victory Point and a city is worth 2 Victory Points \n";
+  print_endline "The setup settlements each count towards VP total \n";
+)
+
 let print_board (u : unit) : unit = (
-print_endline "\n";
 print_endline "            1        2";
 print_endline "           / \\     / \\";
 print_endline "        1 /  2\\  3/  4\\";
@@ -323,6 +360,7 @@ let rec turn (count : int)
   print_string " has rolled a ";
   print_int dice_roll;
   print_endline "";
+  print_endline "\n ====BOARD==== \n";
   print_board ();
   let node_list = Game.Board.SmallBoard.get_node_lst board in
   let new_player_one = assign_resources node_list (fst players) dice_roll in
@@ -411,22 +449,23 @@ let rec repl_turn turn_number player1 player2 board : string * Game.Player.Playe
 
 let () =
   print_endline "Welcome to Catan!\n";
+  print_rules ();
   print_board ();
 
   print_endline
-    "Possible locations are labeled 1-24 starting top left and increase right \
-     then down\n";
+    "Possible settlement locations are labeled 1-24 starting top left and increase right \
+     then down.\nPossible road locations are labeled 1-30 starting top left and increase right.";
   let p1 = Game.Player.Player.empty in
   let p2 = Game.Player.Player.empty in
   let board = Game.Board.SmallBoard.initial_board in
-  let board, p1, just_placed = repl_piece p1 1 "first" board in
-  let board, p1 = repl_road p1 board in
-  let board, p2, just_placed = repl_piece p2 2 "first" board in
-  let board, p2 = repl_road p2 board in
-  let board, p2, just_placed = repl_piece p2 2 "second" board in
-  let board, p2 = repl_road p2 board in
-  let board, p1, just_placed = repl_piece p1 1 "second" board in
-  let board, p1 = repl_road p1 board in
+  let board, p1, just_placed = repl_piece p1 1 "first" board true in
+  let board, p1 = repl_road p1 board true in
+  let board, p2, just_placed = repl_piece p2 2 "first" board true in
+  let board, p2 = repl_road p2 board true in
+  let board, p2, just_placed = repl_piece p2 2 "second" board true in
+  let board, p2 = repl_road p2 board true in
+  let board, p1, just_placed = repl_piece p1 1 "second" board true in
+  let board, p1 = repl_road p1 board true in
   print_endline "Board set up!";
   print_string "Player one has settlements at: ";
   print_string (lst2str (Game.Player.Player.get_settlement_locations p1));
