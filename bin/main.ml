@@ -179,11 +179,62 @@ let rec repl_city (player : Game.Player.Player.t)
         repl_city player board
 
 
-(* let repl_trade (player : Game.Player.Player.t) : Game.Player.Player.t =  *)
+let rec repl_trade (player : Game.Player.Player.t) : Game.Player.Player.t = 
+  let s = "What resourse would you like to trade in: " in
+  print_endline s; let input = read_line () in
+  match input with
+  | s -> if String.lowercase_ascii s = "wheat" then (if (Game.Player.Player.get_wheat player > 2) then (
+                              print_endline "What resource would you like: ";
+                              let input1 = read_line () in match input1 with | s1 -> let new_player = Game.Player.Player.trade_wheat player in if String.lowercase_ascii s1 = "wood" then Game.Player.Player.add_wood new_player
+                                                                                    else if String.lowercase_ascii s1 = "ore" then Game.Player.Player.add_ore new_player
+                                                                                    else if String.lowercase_ascii s1 = "sheep" then Game.Player.Player.add_sheep new_player
+                                                                                    else if String.lowercase_ascii s1 = "clay" then Game.Player.Player.add_clay new_player
+                                                                                    else if String.lowercase_ascii s1 = "wheat" then Game.Player.Player.add_wheat new_player
+                                                                                    else (print_endline "Invalid Input"; repl_trade player))
+                                                                                  else (print_endline "Don't have enough of that resourse"; repl_trade player))
+        else if String.lowercase_ascii s = "ore" then (if (Game.Player.Player.get_ore player > 2) then (
+          print_endline "What resource would you like: ";
+          let input1 = read_line () in match input1 with | s1 -> let new_player = Game.Player.Player.trade_ore player in if String.lowercase_ascii s1 = "wood" then Game.Player.Player.add_wood new_player
+                                                                else if String.lowercase_ascii s1 = "ore" then Game.Player.Player.add_ore new_player
+                                                                else if String.lowercase_ascii s1 = "sheep" then Game.Player.Player.add_sheep new_player
+                                                                else if String.lowercase_ascii s1 = "clay" then Game.Player.Player.add_clay new_player
+                                                                else if String.lowercase_ascii s1 = "wheat" then Game.Player.Player.add_wheat new_player
+                                                                else (print_endline "Invalid Input"; repl_trade player))
+                                                              else (print_endline "Don't have enough of that resourse"; repl_trade player))
+        else if String.lowercase_ascii s = "sheep" then (if (Game.Player.Player.get_sheep player > 2) then (
+          print_endline "What resource would you like: ";
+          let input1 = read_line () in match input1 with | s1 -> let new_player = Game.Player.Player.trade_sheep player in if String.lowercase_ascii s1 = "wood" then Game.Player.Player.add_wood new_player
+                                                                else if String.lowercase_ascii s1 = "ore" then Game.Player.Player.add_ore new_player
+                                                                else if String.lowercase_ascii s1 = "sheep" then Game.Player.Player.add_sheep new_player
+                                                                else if String.lowercase_ascii s1 = "clay" then Game.Player.Player.add_clay new_player
+                                                                else if String.lowercase_ascii s1 = "wheat" then Game.Player.Player.add_wheat new_player
+                                                                else (print_endline "Invalid Input"; repl_trade player))
+                                                              else (print_endline "Don't have enough of that resourse"; repl_trade player))
+        else if String.lowercase_ascii s = "clay" then (if (Game.Player.Player.get_clay player > 2) then (
+          print_endline "What resource would you like: ";
+          let input1 = read_line () in match input1 with | s1 -> let new_player = Game.Player.Player.trade_clay player in if String.lowercase_ascii s1 = "wood" then Game.Player.Player.add_wood new_player
+                                                                else if String.lowercase_ascii s1 = "ore" then Game.Player.Player.add_ore new_player
+                                                                else if String.lowercase_ascii s1 = "sheep" then Game.Player.Player.add_sheep new_player
+                                                                else if String.lowercase_ascii s1 = "clay" then Game.Player.Player.add_clay new_player
+                                                                else if String.lowercase_ascii s1 = "wheat" then Game.Player.Player.add_wheat new_player
+                                                                else (print_endline "Invalid Input"; repl_trade player))
+                                                              else (print_endline "Don't have enough of that resourse"; repl_trade player))
+        else if String.lowercase_ascii s = "wood" then (if (Game.Player.Player.get_wood player > 2) then (
+          print_endline "What resource would you like: ";
+          let input1 = read_line () in match input1 with | s1 -> let new_player = Game.Player.Player.trade_wood player in if String.lowercase_ascii s1 = "wood" then Game.Player.Player.add_wood new_player
+                                                                else if String.lowercase_ascii s1 = "ore" then Game.Player.Player.add_ore new_player
+                                                                else if String.lowercase_ascii s1 = "sheep" then Game.Player.Player.add_sheep new_player
+                                                                else if String.lowercase_ascii s1 = "clay" then Game.Player.Player.add_clay new_player
+                                                                else if String.lowercase_ascii s1 = "wheat" then Game.Player.Player.add_wheat new_player
+                                                                else (print_endline "Invalid Input"; repl_trade player))
+                                                              else (print_endline "Don't have enough of that resourse"; repl_trade player))
+        else (print_endline "Invalid Input"; repl_trade player)
+        
+
 let rec build (player : Game.Player.Player.t)(board : Game.Board.SmallBoard.t)
     (player_num : int) : Game.Player.Player.t * Game.Board.SmallBoard.t=
   print_endline
-    "Enter 1 to build a road, 2 to build a settlement, 3 to build a city, or 4 \
+    "Enter 1 to build a road, 2 to build a settlement, 3 to build a city, 4 to trade, or 5 \
      to end turn: ";
   let input =
     try int_of_string (read_line ()) with
@@ -195,7 +246,7 @@ let rec build (player : Game.Player.Player.t)(board : Game.Board.SmallBoard.t)
     | _ ->
         print_endline "INVALID INPUT";
         build player board player_num)
-  else if input < 1 || input > 4 then build player board player_num
+  else if input < 1 || input > 5 then build player board player_num
   else if input = 1 then if ((Game.Player.Player.get_road_count player > 0) && (Game.Player.Player.get_clay player > 0) && (Game.Player.Player.get_wood player > 0)) then (
     let road_build = repl_road player board in
     match road_build with
@@ -214,6 +265,8 @@ let rec build (player : Game.Player.Player.t)(board : Game.Board.SmallBoard.t)
     | _ ->
         print_endline "Successful city build!";
         build (snd city_build) (fst city_build) player_num) else (print_endline "Not enough resources to do this"; build player board player_num)
+    else if input = 4 then if ((Game.Player.Player.get_clay player > 2) || (Game.Player.Player.get_wood player > 2) || (Game.Player.Player.get_wheat player > 0)|| (Game.Player.Player.get_sheep player > 0)|| (Game.Player.Player.get_ore player > 0)) then let trade_player =  (repl_trade player) in match trade_player with | _ -> build trade_player board player_num 
+                          else (print_endline "Not enough resources to do this"; build player board player_num)
   else
     match input with
     | _ ->

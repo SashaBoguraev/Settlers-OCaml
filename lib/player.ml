@@ -25,8 +25,12 @@ module type PlayerType = sig
   val add_clay : t -> t
   val add_sheep : t -> t
   val add_wheat : t -> t
-
   val add_point : t -> t
+  val trade_ore : t -> t
+  val trade_wood : t -> t
+  val trade_clay : t -> t
+  val trade_sheep : t -> t
+  val trade_wheat : t -> t
 
   (* val add_dev_card : t -> t
 
@@ -71,6 +75,21 @@ module Player = struct
   let get_settlement_locations player = player.settlement_locations
   let get_road_locations player = player.road_locations
   let get_city_locations player = player.city_locations
+  let trade_clay player = 
+    let count = player.clay_count - 3 in
+    { player with clay_count = count } 
+  let trade_ore player = 
+    let count = player.ore_count - 3 in
+    { player with ore_count = count } 
+  let trade_sheep player = 
+    let count = player.sheep_count - 3 in
+    { player with sheep_count = count } 
+  let trade_wood player = 
+    let count = player.wood_count - 3 in
+    { player with wood_count = count } 
+  let trade_wheat player = 
+    let count = player.wheat_count - 3 in
+    { player with wheat_count = count } 
 
   let empty =
     {
