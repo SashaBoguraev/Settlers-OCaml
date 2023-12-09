@@ -10,4 +10,4 @@ To install this project please run `git clone git@github.coecis.cornell.edu:asb3
 
 ## Running
 
-In order to run this game, please run `dune exec bin/main.exe` within the directory. This should start our game. Players one and two will be prompted to put down their pieces in order: Player 1, Player 2, Player 2, Player 1. If you try to put down two pieces in the same position, this will not be allowed. At the end of setup, players hands and positions will be printed.
+In order to run this game, please run `dune exec bin/main.exe` within the directory. This should start our game. Instructions on how to play will appear. They are also located in the README.
