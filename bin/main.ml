@@ -82,8 +82,7 @@ let rec repl_road (player : Game.Player.Player.t)
     (board : Game.Board.SmallBoard.t) (setup:bool):
     Game.Board.SmallBoard.t * Game.Player.Player.t =
   let s =
-    "Where would you like your road to be?  \
-     then down  "
+    "Where would you like your road to be?"
   in
   print_endline s;
   if (not setup) then print_endline "Type -1 to cancel build";
@@ -116,6 +115,9 @@ else if input = 100 then (
 let rec repl_piece (player : Game.Player.Player.t) (playernum : int)
     (piece : string) (board : Game.Board.SmallBoard.t) (setup :bool):
     Game.Board.SmallBoard.t * Game.Player.Player.t * int =
+  print_string "Player ";
+  print_int playernum;
+  print_string ": ";
   let s =
     "Where would you like your settlement to be?  "
   in
@@ -454,7 +456,7 @@ let () =
 
   print_endline
     "Possible settlement locations are labeled 1-24 starting top left and increase right \
-     then down.\nPossible road locations are labeled 1-30 starting top left and increase right.";
+     then down.\nPossible road locations are labeled 1-30 starting top left and increase right then down.";
   let p1 = Game.Player.Player.empty in
   let p2 = Game.Player.Player.empty in
   let board = Game.Board.SmallBoard.initial_board in
