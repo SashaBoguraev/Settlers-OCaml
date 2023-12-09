@@ -194,24 +194,24 @@ let rec build (player : Game.Player.Player.t)(board : Game.Board.SmallBoard.t)
         print_endline "INVALID INPUT";
         build player board player_num)
   else if input < 1 || input > 4 then build player board player_num
-  else if input = 1 then (
+  else if input = 1 then if ((Game.Player.Player.get_road_count player > 0) && (Game.Player.Player.get_clay player > 0) && (Game.Player.Player.get_wood player > 0)) then (
     let road_build = repl_road player board in
     match road_build with
     | _ ->
         print_endline "Successful road build!";
-        build (snd road_build) (fst road_build) player_num)
-  else if input = 2 then (
+        build (snd road_build) (fst road_build) player_num) else (print_endline "Not enough resources to do this"; build player board player_num)
+  else if input = 2 then if ((Game.Player.Player.get_settlement_count player > 0) && (Game.Player.Player.get_clay player > 0) && (Game.Player.Player.get_wood player > 0)&& (Game.Player.Player.get_wheat player > 0)&& (Game.Player.Player.get_sheep player > 0)) then(
     let settlement_build = repl_piece player player_num "next" board in
     match settlement_build with
     | b, p, i ->
         print_endline "Successful settlement build!";
-        build p b player_num)
-  else if input = 3 then (
+        build p b player_num) else (print_endline "Not enough resources to do this"; build player board player_num)
+  else if input = 3 then if ((Game.Player.Player.get_city_count player > 0) && (Game.Player.Player.get_wheat player > 1) && (Game.Player.Player.get_ore player > 2)) then(
     let city_build = repl_city player board in
     match city_build with
     | _ ->
         print_endline "Successful city build!";
-        build (snd city_build) (fst city_build) player_num)
+        build (snd city_build) (fst city_build) player_num) else (print_endline "Not enough resources to do this"; build player board player_num)
   else
     match input with
     | _ ->
