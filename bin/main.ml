@@ -62,14 +62,16 @@ let rec loop_settlements_resource_three node_list settlements player roll =
 (* Uses above helper functions to get correct resources for players *)
 let assign_resources node_list player roll : Game.Player.Player.t =
   let settlements = Game.Player.Player.get_settlement_locations player in
+  let cities = Game.Player.Player.get_city_locations player in
+  let entities = settlements @ cities in
   let player_rec_one =
-    loop_settlements_resource_one node_list settlements player roll
+    loop_settlements_resource_one node_list entities player roll
   in
   let player_rec_two =
-    loop_settlements_resource_two node_list settlements player_rec_one roll
+    loop_settlements_resource_two node_list entities player_rec_one roll
   in
   let player_rec_three =
-    loop_settlements_resource_three node_list settlements player_rec_two roll
+    loop_settlements_resource_three node_list entities player_rec_two roll
   in
   player_rec_three
 
