@@ -521,8 +521,8 @@ module SmallBoard : BoardType = struct
   If the move is illegal, it will return None (a move is illegal if there is already a piece at the desired location) *)
   let build_city (board : t) (city_loc : int) : t option =
     if
-      (List.nth board.node_lst (city_loc - 1)).is_settlement
-      && not (List.nth board.node_lst (city_loc - 1)).is_city
+      ((*List.nth board.node_lst (city_loc - 1)).is_settlement
+      && *)not (List.nth board.node_lst (city_loc - 1)).is_city)
     then
       let new_nodes =
         List.mapi

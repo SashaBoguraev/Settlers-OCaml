@@ -20,6 +20,7 @@ module type PlayerType = sig
   val get_settlement_locations : t -> int list
   val get_road_locations : t -> int list
   val get_city_locations : t -> int list
+  val get_buildable_locs : t -> int list
   val add_ore : t -> t
   val add_wood : t -> t
   val add_clay : t -> t

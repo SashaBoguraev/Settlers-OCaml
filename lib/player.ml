@@ -20,6 +20,8 @@ module type PlayerType = sig
   val get_settlement_locations : t -> int list
   val get_road_locations : t -> int list
   val get_city_locations : t -> int list
+  val get_buildable_locs : t -> int list
+
   val add_ore : t -> t
   val add_wood : t -> t
   val add_clay : t -> t
@@ -58,7 +60,6 @@ module Player = struct
   }
 
   (** Getters*)
-  let get_buildable_locs player = player.buildable_locs
 
   let get_clay player = player.clay_count
   let get_wood player = player.wood_count
@@ -75,6 +76,8 @@ module Player = struct
   let get_settlement_locations player = player.settlement_locations
   let get_road_locations player = player.road_locations
   let get_city_locations player = player.city_locations
+  let get_buildable_locs player = player.buildable_locs
+
   let trade_clay player = 
     let count = player.clay_count - 3 in
     { player with clay_count = count } 
@@ -196,8 +199,8 @@ module Player = struct
             road_count = player.road_count - 1;
             road_locations = (loc - 1) :: player.road_locations;
             buildable_locs =
-              fst (List.nth edge_road_pairs loc)
-              :: snd (List.nth edge_road_pairs loc)
+              fst (List.nth edge_road_pairs (loc -1))
+              :: snd (List.nth edge_road_pairs (loc -1))
               :: player.buildable_locs;
           },
         0 )
@@ -208,27 +211,32 @@ module Player = struct
       If the move is illegal, it will return a tuple of 'None' and a number representing the reason for 
       the error. The key is as follows:
       1: Player doesn't have enough settlements to play
-      2: Player doesn't have enough resources to play*)
-  let build_settlment player loc =
-    if
-      player.clay_count > 0 && player.wood_count > 0 && player.sheep_count > 0
-      && player.wheat_count > 0
-      && player.settlement_count > 0
-    then
-      ( Some
-          {
-            player with
-            clay_count = player.clay_count - 1;
-            wood_count = player.wood_count - 1;
-            sheep_count = player.sheep_count - 1;
-            wheat_count = player.wheat_count - 1;
-            settlement_count = player.settlement_count - 1;
-            settlement_locations = (loc - 1) :: player.settlement_locations;
-            buildable_locs = loc :: player.buildable_locs;
-          },
-        0 )
-    else if player.settlement_count == 0 then (None, 1)
-    else (None, 2)
+      2: Player doesn't have enough resources to play
+      3. It is not a buildable loc *)
+      let build_settlment player loc =
+        if
+          (not (List.mem (loc - 1) player.buildable_locs))
+          && get_settlement_count player < 4
+        then (None, 3)
+        else if
+          player.clay_count > 0 && player.wood_count > 0 && player.sheep_count > 0
+          && player.wheat_count > 0
+          && player.settlement_count > 0
+        then
+          ( Some
+              {
+                player with
+                clay_count = player.clay_count - 1;
+                wood_count = player.wood_count - 1;
+                sheep_count = player.sheep_count - 1;
+                wheat_count = player.wheat_count - 1;
+                settlement_count = player.settlement_count - 1;
+                settlement_locations = (loc - 1) :: player.settlement_locations;
+                buildable_locs = loc :: player.buildable_locs;
+              },
+            0 )
+        else if player.settlement_count == 0 then (None, 1)
+        else (None, 2)
 
   (** Builds a city on the map at edge road_loc, returns a tuple of the updated player and an integer 0. 
       If the move is illegal, it will return a tuple of 'None' and a number representing the reason for 
