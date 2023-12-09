@@ -95,7 +95,7 @@ let rec repl_road (player : Game.Player.Player.t)
     | _ ->
         print_endline "INVALID INPUT";
         repl_road player board)
-  else if input > 30 || input < 1 then repl_road player board
+  else if input > 30 || input < 1 then (print_endline "Out of range try again"; repl_road player board)
   else
     match
       ( Game.Board.SmallBoard.build_road board input,
@@ -126,7 +126,7 @@ let rec repl_piece (player : Game.Player.Player.t) (playernum : int)
     | _ ->
         print_endline "INVALID INPUT";
         repl_piece player playernum piece board)
-  else if input > 24 || input < 1 then repl_piece player playernum piece board
+  else if input > 24 || input < 1 then (print_endline "Out of range try again";repl_piece player playernum piece board)
   else
     match
       ( Game.Board.SmallBoard.build_settlement board input,
