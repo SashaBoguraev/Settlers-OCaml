@@ -21,6 +21,15 @@ let rec build_n (f : Player.Player.t -> int -> Player.Player.t option * int)
 
 let empty_player = Test_Player.Player.empty
 
+let player_three_all = 
+  let with_wood = add_n_resources Player.Player.add_wood empty_player 3 in
+  let with_clay = add_n_resources Player.Player.add_clay with_wood 3 in
+  let with_wheat = add_n_resources Player.Player.add_wheat with_clay 3 in
+  let with_ore = add_n_resources Player.Player.add_ore with_wheat 3 in
+  let with_sheep = add_n_resources Player.Player.add_sheep with_ore 3 in
+  with_sheep
+
+
 let player_that_can_build_16_roads : Player.Player.t =
   let with_wood = add_n_resources Player.Player.add_wood empty_player 12 in
   let with_both = add_n_resources Player.Player.add_clay with_wood 12 in
@@ -156,6 +165,43 @@ let player_tests =
          Player.Player.get_city_locations
            (get_player_from_option (fst (Player.Player.build_city with_both 1))))
     );
+    ( "Player loses three clay after trading clay" >:: fun _ ->
+      assert_equal 4 (Player.Player.get_clay (Player.Player.trade_clay player_three_all)));
+    ( "Player loses three wood after trading wood" >:: fun _ ->
+      assert_equal 4 (Player.Player.get_wood (Player.Player.trade_wood player_three_all)));
+    ( "Player loses three wheat after trading wheat" >:: fun _ ->
+      assert_equal 2 (Player.Player.get_wheat (Player.Player.trade_wheat player_three_all)));
+    ( "Player loses three sheep after trading sheep" >:: fun _ ->
+      assert_equal 2 (Player.Player.get_sheep (Player.Player.trade_sheep player_three_all)));
+    ( "Player loses three ore after trading ore" >:: fun _ ->
+      assert_equal 0 (Player.Player.get_ore (Player.Player.trade_ore player_three_all)));
+    ( "Player add sheep and then lose sheep" >:: fun _ ->
+      assert_equal 3 (Player.Player.get_sheep (Player.Player.trade_sheep (Player.Player.add_sheep player_three_all))));
+    ( "Player add ore and then lose ore" >:: fun _ ->
+      assert_equal 1 (Player.Player.get_ore (Player.Player.trade_ore (Player.Player.add_ore player_three_all))));
+    ( "Player add wheat and then lose wheat" >:: fun _ ->
+      assert_equal 3 (Player.Player.get_wheat(Player.Player.trade_wheat (Player.Player.add_wheat player_three_all))));
+    ( "Player add wood and then lose wood" >:: fun _ ->
+      assert_equal 5 (Player.Player.get_wood (Player.Player.trade_wood (Player.Player.add_wood player_three_all))));
+    ( "Player add clay and then lose clay" >:: fun _ ->
+      assert_equal 5 (Player.Player.get_clay (Player.Player.trade_clay (Player.Player.add_clay player_three_all))));
+
+    ( "Player trade sheep and then add sheep" >:: fun _ ->
+      assert_equal 3 (Player.Player.get_sheep (Player.Player.add_sheep (Player.Player.trade_sheep player_three_all))));
+    ( "Player trad ore and then add ore" >:: fun _ ->
+      assert_equal 1 (Player.Player.get_ore (Player.Player.add_ore (Player.Player.trade_ore player_three_all))));
+    ( "Player trade wheat and then add wheat" >:: fun _ ->
+      assert_equal 3 (Player.Player.get_wheat(Player.Player.add_wheat (Player.Player.trade_wheat player_three_all))));
+    ( "Player trade wood and then add wood" >:: fun _ ->
+      assert_equal 5 (Player.Player.get_wood (Player.Player.add_wood (Player.Player.trade_wood player_three_all))));
+    ( "Player trade clay and then add clay" >:: fun _ ->
+      assert_equal 5 (Player.Player.get_clay (Player.Player.add_clay (Player.Player.trade_clay player_three_all))));
+
+    ( "Player trade and then add different resources" >:: fun _ ->
+      assert_equal 2 (Player.Player.get_sheep (Player.Player.add_ore (Player.Player.trade_sheep player_three_all))));
+    ( "Player add and then trade different resources" >:: fun _ ->
+      assert_equal 0 (Player.Player.get_ore (Player.Player.add_sheep (Player.Player.trade_ore player_three_all))));
+    
   ]
 
 let board_tests =
