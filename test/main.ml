@@ -1,3 +1,50 @@
+(* Test plan:
+
+OUnit tests both of the files in lib, lib/board.ml and lib/player.ml.
+The file in bin, bin/main.exe, is tested manually. 
+
+lib/board.ml has two main purposes: creating the initial board and 
+building on an existing board, if and only if it’s legal. We did not
+test the creation of every single edge and node in the initial 
+board to avoid redundant testing. We use mostly glass box testing to
+test all of our building functions in lib/board.ml so that we make
+sure to cover every reason that a build would or would not be legal
+and verify the expected output. We use some black box testing to
+test elementary build actions that we know are legal and some
+initial board attributes. We chose not to do any randomized testing 
+for lib/board.ml because of the nature of the game, where there are 
+only a few valid building locations at a given time (if any), and so 
+we were able to test all possible actions ourselves.
+
+In lib/player.ml, we maintain all attributes of an active player and 
+update and get these. It also maintains a list of legal moves for a 
+player. We use glass box unit testing to attempt to break each of 
+these rules and verify that lib/player.ml responds accordingly, as 
+well as making all legal moves. Additionally, we test black box general 
+cases that each player should have to complete during setup. Again, we 
+did not write any randomized tests because of the nature of the game 
+and what is allowed.
+
+bin/main.exe was tested manually rather than using OUnit. Mostly, 
+we tested this file using blackbox tests while playing the game normally, 
+but we also tried to enter extraneous input (e.g. strings when integers 
+were expected), or break the rules by making illegal moves to verify 
+that our program would respond accordingly.
+
+We believe that this approach demonstrates functionality because almost 
+every function used while the game is being executed (the functions in 
+bin/main.exe) is covered by glass box OUnit tests, and then again 
+indirectly by manual tests when they are called in bin/main.exe. 
+The remaining functions are the ones that are defined only in 
+bin/main.exe. Although they have no unit tests, because they are made 
+up combinations of calls functions from the Player and Board Modules 
+(which have OUnit coverage), we are able to confirm that they work 
+by running bin/main.exe and testing them manually. This in turn 
+provides improved testing of the functions in lib/board.ml and 
+lib/player.ml. By combining an array of testing methods, we are 
+able to demonstrate that our functions both fulfill specifications 
+and handle extraneous input well. *)
+
 open OUnit2
 open Game
 
