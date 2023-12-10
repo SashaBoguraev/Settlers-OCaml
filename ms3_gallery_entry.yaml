@@ -1,0 +1,25 @@
+---
+group:
+  - name: Max Whitton
+    netid: mmw243
+  - name: Leo Davies
+    netid: lcd49
+  - name: Sasha Boguraev
+    netid: asb323
+pm:
+  name: Alex Kozik
+  netid: ajk333
+publish: true
+title: Settlers of Catan Minigame
+git-repo: https://github.coecis.cornell.edu/asb323/CS-3110-Project
+desc: >
+  Our project is a miniature version of a two player board game called
+  Settlers of Catan, in which players and collect resources, build settlements, 
+  and expand across the world of Catan. Our application executes in three phases- 
+  a setup phase, a gameplay phase, and an ending phase triggered by a winning score 
+  or a forfeit.  The application supports rule checking and automates scorekeeping 
+  and resource management.
+  
+  We intend for our application to be used to teach beginner players the rules of
+  Settlers of Catan, automate the more tedious aspects of the game for experienced
+  players, and improve access and portability of the original game.
