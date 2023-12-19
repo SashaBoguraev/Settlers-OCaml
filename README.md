@@ -9,6 +9,10 @@ As players, you will attempt to build settlements, roads and cities in order to 
 Instructions on just how to do this are below. The game starts with a setup period, and then a period of turns, where
 players will alternate performing various actions until one wins.
 
+### Installation
+
+Instructions in INSTALL.md.
+
 ### Setup
 
 Player 1 will place a settlement down first at a location of their choosing
